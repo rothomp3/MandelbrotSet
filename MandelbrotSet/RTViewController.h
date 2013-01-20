@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface RTViewController : UIViewController
-
+@property (nonatomic) int numIterations;
 @end

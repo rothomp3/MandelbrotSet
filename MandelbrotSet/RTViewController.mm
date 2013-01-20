@@ -10,11 +10,13 @@
 #import "RTMandelbrotView.h"
 
 @implementation RTViewController
+@synthesize numIterations;
+
 - (void)loadView
 {
     CGRect frame = [[UIScreen mainScreen] bounds];
     RTMandelbrotView* v = [[RTMandelbrotView alloc] initWithFrame:frame];
-    
+    [v setMaxIterations:numIterations];
     [self setView:v];
 }
 @end

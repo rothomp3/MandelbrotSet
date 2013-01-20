@@ -8,6 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-@interface RTSettingsViewController : NSObject
+@interface RTSettingsViewController : UIViewController
+{
+    IBOutlet UITextField* iterationsField;
+}
+@property (nonatomic) int numIterations;
+
+- (IBAction)showMandelbrotSet:(id)sender;
 
 @end

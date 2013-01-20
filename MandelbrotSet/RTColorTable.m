@@ -27,8 +27,8 @@
             CGFloat greenf = green / 255.0;
             CGFloat bluef = blue / 255.0;
             */
-            CGFloat redf = (1.0 - ((i * 10) / (CGFloat)(numColors -1.0))) - 0.2;
-            CGFloat greenf = (1.0 - ((i * 5) / (CGFloat)(numColors -1.0))) - 0.2;
+            CGFloat redf = (1.0 - ((i * 10) / (CGFloat)(numColors - 1.0))) - 0.2;
+            CGFloat greenf = (1.0 - ((i * 5) / (CGFloat)(numColors - 1.0))) - 0.2;
             CGFloat bluef = 1.0 - i / (CGFloat)(numColors -1.0);
             [colors addObject:[UIColor colorWithRed:redf green:greenf blue:bluef alpha:1.0]];
         }

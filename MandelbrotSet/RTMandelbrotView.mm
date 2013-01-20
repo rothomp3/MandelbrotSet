@@ -10,7 +10,7 @@
 #include "complex.h"
 
 @implementation RTMandelbrotView
-@synthesize mandelbrot, colors;
+@synthesize mandelbrot, colors, maxIterations;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -20,7 +20,6 @@
     {
         [self setBackgroundColor:[UIColor whiteColor]];
         [self setMandelbrot:[[RTMandelbrot alloc] init]];
-        [mandelbrot setMaxIterations:10000];
         [self setColors:[[RTColorTable alloc] initWithColors:256]];
         NSLog(@"Init complete, including colors.");
     }
@@ -28,6 +27,7 @@
 }
 - (void)drawRect:(CGRect)dirtyRect
 {
+    [mandelbrot setMaxIterations:maxIterations];
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     
     CGRect bounds = [self bounds];

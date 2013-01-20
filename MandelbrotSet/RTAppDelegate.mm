@@ -8,6 +8,7 @@
 
 #import "RTAppDelegate.h"
 #import "RTViewController.h"
+#import "RTSettingsViewController.h"
 
 @implementation RTAppDelegate
 
@@ -17,10 +18,10 @@
     // Override point for customization after application launch.
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
     
-    RTViewController* mvc = [[RTViewController alloc] init];
-    
-    [[self window] setRootViewController:mvc];
-    
+    RTSettingsViewController* svc = [[RTSettingsViewController alloc] init];
+    UINavigationController *navControl = [[UINavigationController alloc] initWithRootViewController:svc];
+    //[[self window] setRootViewController:mvc];
+    [[self window] setRootViewController:navControl];
     self.window.backgroundColor = [UIColor blackColor];
     [self.window makeKeyAndVisible];
     
