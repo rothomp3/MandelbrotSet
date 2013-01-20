@@ -19,17 +19,10 @@
         [self setNumColors:number];
         for (int i = 0; i < numColors; i++)
         {
-            /*
-            int8_t red = (int8_t)i;
-            int8_t green = (int8_t)(i >> 8);
-            int8_t blue = (int8_t)(i >> 16);
-            CGFloat redf = red / 255.0;
-            CGFloat greenf = green / 255.0;
-            CGFloat bluef = blue / 255.0;
-            */
-            CGFloat redf = (1.0 - ((i * 10) / (CGFloat)(numColors - 1.0))) - 0.2;
-            CGFloat greenf = (1.0 - ((i * 5) / (CGFloat)(numColors - 1.0))) - 0.2;
-            CGFloat bluef = 1.0 - i / (CGFloat)(numColors -1.0);
+            CGFloat divisor = (CGFloat)(numColors - 1.0);
+            CGFloat redf = (1.0 - (i / divisor)) - 0.2;
+            CGFloat greenf = (1.0 - (i / divisor)) - 0.2;
+            CGFloat bluef = 1.0 - i / divisor;
             [colors addObject:[UIColor colorWithRed:redf green:greenf blue:bluef alpha:1.0]];
         }
     }
