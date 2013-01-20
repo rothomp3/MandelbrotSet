@@ -24,7 +24,6 @@
             CGFloat saturation = 0.8 + (iFactor * 0.2);
             CGFloat brightness = 1.3 - iFactor;
             
-            //[colors addObject:[UIColor colorWithRed:redf green:greenf blue:bluef alpha:1.0]];
             [colors addObject:[UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1.0]];
         }
     }
