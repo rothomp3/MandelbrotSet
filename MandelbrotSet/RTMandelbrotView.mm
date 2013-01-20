@@ -10,7 +10,7 @@
 #include "complex.h"
 
 @implementation RTMandelbrotView
-@synthesize mandelbrot, colors, maxIterations;
+@synthesize mandelbrot, colors, maxIterations, currScaleFactor, center, screenCenter;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -20,7 +20,15 @@
     {
         [self setBackgroundColor:[UIColor whiteColor]];
         [self setMandelbrot:[[RTMandelbrot alloc] init]];
-        [self setColors:[[RTColorTable alloc] initWithColors:256]];
+        [self setColors:[[RTColorTable alloc] initWithColors:32]];
+        [self setCurrScaleFactor:100];
+        
+        UITapGestureRecognizer* tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
+        
+        [self addGestureRecognizer:tapRecognizer];
+
+        center.x = -1.0;
+        center.y = 0.0;
         NSLog(@"Init complete, including colors.");
     }
     return self;
@@ -32,33 +40,33 @@
     
     CGRect bounds = [self bounds];
     
-    CGPoint center;
-    center.x = bounds.origin.x + bounds.size.width / 2.0;
-    center.y = bounds.origin.y + bounds.size.height / 2.0;
     CGContextSetLineWidth(ctx, 0.0);
     CGContextSetRGBStrokeColor(ctx, 0.0, 0.0, 0.0, 0.0);
-    for (float i = 0; i < bounds.size.width; i+=0.5)
+
+    NSArray* colorTable = [colors colors];
+    screenCenter.x = self.bounds.size.width / 2.0;
+    screenCenter.y = self.bounds.size.height / 2.0;
+    
+    for (CGFloat i = 0; i < bounds.size.width; i+=0.5)
     {
-        for (float j = 0; j < bounds.size.height; j+=0.5)
-        {
-            double x = (i - center.x) / 100.0 - 1.0;
-            double y = (0.0 - (j - center.y)) / 100.0;
-            
-            [mandelbrot setPoint:Complex(x,y)];
+        for (CGFloat j = 0; j < bounds.size.height; j+=0.5)
+        {            
+            [mandelbrot setPoint:Complex([self scaleX:i], [self scaleY:j])];
             [mandelbrot doPoint];
-            if ([mandelbrot isInSet])
+            if ([mandelbrot escapedAt] == -1)
             {
                 CGContextSetRGBFillColor(ctx, 0.0, 0.0, 0.0, 1.0);
             }
             else
             {
-                [[colors colors][[mandelbrot escapedAt] % [colors numColors]] setFill];
+                unsigned int colorIndex = [mandelbrot escapedAt] % [colors numColors];
+                [colorTable[colorIndex] setFill];
             }
             
-            CGContextFillRect(ctx, CGRectMake(i, j, 1.0, 1.0));
+            CGContextFillRect(ctx, CGRectMake(i, j, 0.5, 0.5));
         }
     }
-    NSString* iterationsString = [NSString stringWithFormat:@"%d iterations", [mandelbrot maxIterations]];
+    NSString* iterationsString = [NSString stringWithFormat:@"MaxIterations: %d", [mandelbrot maxIterations]];
     UIFont* font = [UIFont boldSystemFontOfSize:12.0];
     CGRect iterationsRect;
     iterationsRect.size = [iterationsString sizeWithFont:font];
@@ -72,5 +80,27 @@
     CGContextSetShadowWithColor(ctx, offset, 2.0, shadowColor);
     
     [iterationsString drawInRect:iterationsRect withFont:font];
+}
+
+- (double)scaleX:(CGFloat)screenCoord
+{
+    return (screenCoord - screenCenter.x)/currScaleFactor + center.x;
+}
+
+- (double)scaleY:(CGFloat)screenCoord
+{
+    return (0.0 - (screenCoord - screenCenter.y))/currScaleFactor + center.y;
+}
+
+- (void)tap:(UIGestureRecognizer*)gr
+{
+    [self setCurrScaleFactor:currScaleFactor * 2];
+    CGPoint point = [gr locationInView:self];
+    CGPoint scaledPoint;
+    scaledPoint.x = [self scaleX:point.x];
+    scaledPoint.y = [self scaleY:point.y];
+    NSLog(@"New center is at (%f, %f)", scaledPoint.x, scaledPoint.y);
+    [self setCenter:scaledPoint];
+    [self setNeedsDisplay];
 }
 @end

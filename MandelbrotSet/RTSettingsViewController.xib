@@ -86,7 +86,7 @@
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentVerticalAlignment">0</int>
-						<string key="IBUIText">100</string>
+						<string key="IBUIText">256</string>
 						<int key="IBUIBorderStyle">3</int>
 						<object class="NSColor" key="IBUITextColor">
 							<int key="NSColorSpace">3</int>
@@ -325,8 +325,8 @@
 								<int key="contentType">2</int>
 							</object>
 							<reference ref="102366692"/>
-							<reference ref="1050584551"/>
 							<reference ref="15288761"/>
+							<reference ref="1050584551"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>

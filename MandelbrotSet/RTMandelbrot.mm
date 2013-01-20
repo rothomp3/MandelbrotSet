@@ -16,6 +16,7 @@
     self = [super init];
     [self setPoint:newPoint];
     [self setMaxIterations:newIter];
+    [self setLowestEscape:maxIterations];
     
     return self;
 }
@@ -41,7 +42,6 @@
     double r = q * (q + x25);
     if ((r < (0.25 * y2)) || ((x+1.0)*(x+1.0) + y2 < (1.0 / 16.0)))
     {
-        [self setIsInSet:YES];
         [self setEscapedAt:-1];
         return;
     }
@@ -57,12 +57,14 @@
     if (i == maxIterations)
     {
         // This implies that point is in the set
-        [self setIsInSet:YES];
         [self setEscapedAt:-1];
     }
     else
     {
-        [self setIsInSet:NO];
+        if (i < [self lowestEscape])
+            [self setLowestEscape:i];
+        if (i > [self highestEscape])
+            [self setHighestEscape:i];
         [self setEscapedAt:i];
     }
     return;

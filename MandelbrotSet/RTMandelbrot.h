@@ -13,8 +13,9 @@
 
 @property (nonatomic) Complex point;
 @property (nonatomic) int maxIterations;
-@property (nonatomic) BOOL isInSet;
 @property (nonatomic) int escapedAt;
+@property (nonatomic) int lowestEscape;
+@property (nonatomic) int highestEscape;
 
 - (id)initWithPoint:(Complex)newPoint;
 - (id)initWithPoint:(Complex)newPoint andMaxIterations:(int)newIter;

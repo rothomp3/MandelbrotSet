@@ -14,4 +14,10 @@
 @property (strong, nonatomic) RTMandelbrot* mandelbrot;
 @property (strong, nonatomic) RTColorTable* colors;
 @property (nonatomic) int maxIterations;
+@property (nonatomic) double currScaleFactor;
+@property (nonatomic) CGPoint center;
+@property (nonatomic) CGPoint screenCenter;
+
+- (double)scaleX:(CGFloat)screenCoord;
+- (double)scaleY:(CGFloat)screenCoord;
 @end

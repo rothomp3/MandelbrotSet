@@ -11,7 +11,8 @@
 		E14114B916AB56240068A083 /* RTViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = E14114B816AB56240068A083 /* RTViewController.mm */; };
 		E14114BC16AB568B0068A083 /* RTMandelbrotView.mm in Sources */ = {isa = PBXBuildFile; fileRef = E14114BB16AB568B0068A083 /* RTMandelbrotView.mm */; };
 		E14114BF16AB6BF60068A083 /* RTColorTable.m in Sources */ = {isa = PBXBuildFile; fileRef = E14114BE16AB6BF60068A083 /* RTColorTable.m */; };
-		E183197E16AC55F6008D5BB4 /* RTSettingsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = E183197D16AC55F5008D5BB4 /* RTSettingsViewController.mm */; };
+		E183198016AC5674008D5BB4 /* RTSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E183197F16AC5673008D5BB4 /* RTSettingsViewController.xib */; };
+		E183198316AC57F5008D5BB4 /* RTSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E183198216AC57F5008D5BB4 /* RTSettingsViewController.m */; };
 		E1E42DC316698AD600BCBBF1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1E42DC216698AD600BCBBF1 /* UIKit.framework */; };
 		E1E42DC516698AD600BCBBF1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1E42DC416698AD600BCBBF1 /* Foundation.framework */; };
 		E1E42DC716698AD600BCBBF1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1E42DC616698AD600BCBBF1 /* CoreGraphics.framework */; };
@@ -33,8 +34,9 @@
 		E14114BB16AB568B0068A083 /* RTMandelbrotView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RTMandelbrotView.mm; sourceTree = "<group>"; };
 		E14114BD16AB6BF60068A083 /* RTColorTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTColorTable.h; sourceTree = "<group>"; };
 		E14114BE16AB6BF60068A083 /* RTColorTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTColorTable.m; sourceTree = "<group>"; };
-		E183197C16AC55F5008D5BB4 /* RTSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTSettingsViewController.h; sourceTree = "<group>"; };
-		E183197D16AC55F5008D5BB4 /* RTSettingsViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RTSettingsViewController.mm; sourceTree = "<group>"; };
+		E183197F16AC5673008D5BB4 /* RTSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RTSettingsViewController.xib; sourceTree = "<group>"; };
+		E183198116AC57F5008D5BB4 /* RTSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTSettingsViewController.h; sourceTree = "<group>"; };
+		E183198216AC57F5008D5BB4 /* RTSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTSettingsViewController.m; sourceTree = "<group>"; };
 		E1E42DBE16698AD600BCBBF1 /* MandelbrotSet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MandelbrotSet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1E42DC216698AD600BCBBF1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E1E42DC416698AD600BCBBF1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -49,7 +51,7 @@
 		E1E42DD616698AD600BCBBF1 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		E1E42DD816698AD600BCBBF1 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		E1E42DE016698F9500BCBBF1 /* complex.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = complex.mm; sourceTree = "<group>"; };
-		E1E42DE116698F9500BCBBF1 /* complex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = complex.h; sourceTree = "<group>"; };
+		E1E42DE116698F9500BCBBF1 /* complex.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = complex.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,8 +110,9 @@
 				E14114BD16AB6BF60068A083 /* RTColorTable.h */,
 				E14114BE16AB6BF60068A083 /* RTColorTable.m */,
 				E14114B816AB56240068A083 /* RTViewController.mm */,
-				E183197C16AC55F5008D5BB4 /* RTSettingsViewController.h */,
-				E183197D16AC55F5008D5BB4 /* RTSettingsViewController.mm */,
+				E183197F16AC5673008D5BB4 /* RTSettingsViewController.xib */,
+				E183198116AC57F5008D5BB4 /* RTSettingsViewController.h */,
+				E183198216AC57F5008D5BB4 /* RTSettingsViewController.m */,
 				E1E42DC916698AD600BCBBF1 /* Supporting Files */,
 			);
 			path = MandelbrotSet;
@@ -185,6 +188,7 @@
 				E1E42DD516698AD600BCBBF1 /* Default.png in Resources */,
 				E1E42DD716698AD600BCBBF1 /* Default@2x.png in Resources */,
 				E1E42DD916698AD600BCBBF1 /* Default-568h@2x.png in Resources */,
+				E183198016AC5674008D5BB4 /* RTSettingsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,7 +206,7 @@
 				E14114B916AB56240068A083 /* RTViewController.mm in Sources */,
 				E14114BC16AB568B0068A083 /* RTMandelbrotView.mm in Sources */,
 				E14114BF16AB6BF60068A083 /* RTColorTable.m in Sources */,
-				E183197E16AC55F6008D5BB4 /* RTSettingsViewController.mm in Sources */,
+				E183198316AC57F5008D5BB4 /* RTSettingsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

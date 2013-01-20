@@ -19,11 +19,13 @@
         [self setNumColors:number];
         for (int i = 0; i < numColors; i++)
         {
-            CGFloat divisor = (CGFloat)(numColors - 1.0);
-            CGFloat redf = (1.0 - (i / divisor)) - 0.2;
-            CGFloat greenf = (1.0 - (i / divisor)) - 0.2;
-            CGFloat bluef = 1.0 - i / divisor;
-            [colors addObject:[UIColor colorWithRed:redf green:greenf blue:bluef alpha:1.0]];
+            CGFloat iFactor = i / (CGFloat)(numColors - 1.0);
+            CGFloat hue = iFactor;
+            CGFloat saturation = 0.8 + (iFactor * 0.2);
+            CGFloat brightness = 1.3 - iFactor;
+            
+            //[colors addObject:[UIColor colorWithRed:redf green:greenf blue:bluef alpha:1.0]];
+            [colors addObject:[UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1.0]];
         }
     }
     return self;
