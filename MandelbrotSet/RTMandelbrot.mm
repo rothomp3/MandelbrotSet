@@ -15,9 +15,7 @@
 {
     self = [super init];
     [self setPoint:newPoint];
-    [self setMaxIterations:newIter];
-    [self setLowestEscape:maxIterations];
-    
+    [self setMaxIterations:newIter];    
     return self;
 }
 
@@ -48,9 +46,12 @@
     
     int i = 0;
     Complex z(0,0);
-    while ((z.abs() < 2) && (i < maxIterations))
+    while ((z.abs2() < 4) && (i < maxIterations))
     {
-        z = (z * z) + point;
+        //z = (z * z) + point;
+        z *= z;
+        z += point;
+        // this is apparently a significant optimization
         i++;
     }
     
@@ -61,11 +62,8 @@
     }
     else
     {
-        if (i < [self lowestEscape])
-            [self setLowestEscape:i];
-        if (i > [self highestEscape])
-            [self setHighestEscape:i];
         [self setEscapedAt:i];
+        [self setZabs:z.abs()];
     }
     return;
 }
