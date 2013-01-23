@@ -1,5 +1,5 @@
 //
-//  complex.h
+//  mycomplex.h
 //  MandelbrotSet
 //
 //  Created by Robert Stephen Thompson on 11/30/12.

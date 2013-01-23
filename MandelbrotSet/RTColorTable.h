@@ -14,5 +14,5 @@
 
 - (UIColor*)getColorForInteger:(int)color;
 - (id)initWithColors:(int)number;
-- (void)generateColors:(int)i;
+
 @end

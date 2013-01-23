@@ -18,14 +18,13 @@
 		E183198B16AC8F6E008D5BB4 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = E183198A16AC8F6E008D5BB4 /* Default.png */; };
 		E183198D16AC911B008D5BB4 /* retinaAppIconMandel.png in Resources */ = {isa = PBXBuildFile; fileRef = E183198C16AC911A008D5BB4 /* retinaAppIconMandel.png */; };
 		E183198F16AC9123008D5BB4 /* non-retinaAppIconMandel.png in Resources */ = {isa = PBXBuildFile; fileRef = E183198E16AC9123008D5BB4 /* non-retinaAppIconMandel.png */; };
-		E1DE2F1116B05822000CC12A /* RTComplex.m in Sources */ = {isa = PBXBuildFile; fileRef = E1DE2F1016B05822000CC12A /* RTComplex.m */; };
+		E1DE2F1416B05E07000CC12A /* mycomplex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1DE2F1216B05E06000CC12A /* mycomplex.cpp */; };
 		E1E42DC316698AD600BCBBF1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1E42DC216698AD600BCBBF1 /* UIKit.framework */; };
 		E1E42DC516698AD600BCBBF1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1E42DC416698AD600BCBBF1 /* Foundation.framework */; };
 		E1E42DC716698AD600BCBBF1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1E42DC616698AD600BCBBF1 /* CoreGraphics.framework */; };
 		E1E42DCD16698AD600BCBBF1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E1E42DCB16698AD600BCBBF1 /* InfoPlist.strings */; };
 		E1E42DCF16698AD600BCBBF1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E42DCE16698AD600BCBBF1 /* main.m */; };
 		E1E42DD316698AD600BCBBF1 /* RTAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = E1E42DD216698AD600BCBBF1 /* RTAppDelegate.mm */; };
-		E1E42DE216698F9500BCBBF1 /* complex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1E42DE016698F9500BCBBF1 /* complex.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,8 +44,8 @@
 		E183198A16AC8F6E008D5BB4 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = ../Default.png; sourceTree = "<group>"; };
 		E183198C16AC911A008D5BB4 /* retinaAppIconMandel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = retinaAppIconMandel.png; path = ../retinaAppIconMandel.png; sourceTree = "<group>"; };
 		E183198E16AC9123008D5BB4 /* non-retinaAppIconMandel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "non-retinaAppIconMandel.png"; path = "../non-retinaAppIconMandel.png"; sourceTree = "<group>"; };
-		E1DE2F0F16B05822000CC12A /* RTComplex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTComplex.h; sourceTree = "<group>"; };
-		E1DE2F1016B05822000CC12A /* RTComplex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTComplex.m; sourceTree = "<group>"; };
+		E1DE2F1216B05E06000CC12A /* mycomplex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mycomplex.cpp; sourceTree = "<group>"; };
+		E1DE2F1316B05E06000CC12A /* mycomplex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mycomplex.h; sourceTree = "<group>"; };
 		E1E42DBE16698AD600BCBBF1 /* MandelbrotSet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MandelbrotSet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1E42DC216698AD600BCBBF1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E1E42DC416698AD600BCBBF1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -57,8 +56,6 @@
 		E1E42DD016698AD600BCBBF1 /* MandelbrotSet-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MandelbrotSet-Prefix.pch"; sourceTree = "<group>"; };
 		E1E42DD116698AD600BCBBF1 /* RTAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RTAppDelegate.h; sourceTree = "<group>"; };
 		E1E42DD216698AD600BCBBF1 /* RTAppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = RTAppDelegate.mm; sourceTree = "<group>"; };
-		E1E42DE016698F9500BCBBF1 /* complex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = complex.cpp; sourceTree = "<group>"; };
-		E1E42DE116698F9500BCBBF1 /* complex.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = complex.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,12 +102,10 @@
 		E1E42DC816698AD600BCBBF1 /* MandelbrotSet */ = {
 			isa = PBXGroup;
 			children = (
-				E1E42DE116698F9500BCBBF1 /* complex.h */,
-				E1E42DE016698F9500BCBBF1 /* complex.cpp */,
+				E1DE2F1216B05E06000CC12A /* mycomplex.cpp */,
+				E1DE2F1316B05E06000CC12A /* mycomplex.h */,
 				E14114B316AB1E040068A083 /* RTMandelbrot.h */,
 				E14114B416AB1E040068A083 /* RTMandelbrot.mm */,
-				E1DE2F0F16B05822000CC12A /* RTComplex.h */,
-				E1DE2F1016B05822000CC12A /* RTComplex.m */,
 				E1E42DD116698AD600BCBBF1 /* RTAppDelegate.h */,
 				E1E42DD216698AD600BCBBF1 /* RTAppDelegate.mm */,
 				E14114B716AB56240068A083 /* RTViewController.h */,
@@ -214,13 +209,12 @@
 			files = (
 				E1E42DCF16698AD600BCBBF1 /* main.m in Sources */,
 				E1E42DD316698AD600BCBBF1 /* RTAppDelegate.mm in Sources */,
-				E1E42DE216698F9500BCBBF1 /* complex.cpp in Sources */,
 				E14114B516AB1E040068A083 /* RTMandelbrot.mm in Sources */,
 				E14114B916AB56240068A083 /* RTViewController.mm in Sources */,
 				E14114BC16AB568B0068A083 /* RTMandelbrotView.mm in Sources */,
 				E14114BF16AB6BF60068A083 /* RTColorTable.m in Sources */,
 				E183198316AC57F5008D5BB4 /* RTSettingsViewController.m in Sources */,
-				E1DE2F1116B05822000CC12A /* RTComplex.m in Sources */,
+				E1DE2F1416B05E07000CC12A /* mycomplex.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

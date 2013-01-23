@@ -8,8 +8,6 @@
 
 #import "RTColorTable.h"
 
-static const int colorLoops = 1;
-
 @implementation RTColorTable
 @synthesize colors, numColors;
 - (id)initWithColors:(int)number
@@ -19,12 +17,14 @@ static const int colorLoops = 1;
     {
         [self setColors:[NSMutableArray new]];
         [self setNumColors:number];
-        for (int j = 0; j < colorLoops; j++)
+        for (int i = 0; i < numColors; i++)
         {
-            for (int i = 0; i < (numColors/colorLoops); i++)
-            {
-                [self generateColors:i];
-            }
+            CGFloat iFactor = i / (CGFloat)(numColors - 1.0);
+            CGFloat hue = iFactor;
+            CGFloat saturation = 0.8 + (iFactor * 0.2);
+            CGFloat brightness = 1.3 - iFactor;
+            
+            [colors addObject:[UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1.0]];
         }
     }
     return self;
@@ -35,13 +35,4 @@ static const int colorLoops = 1;
     return colors[color];
 }
 
-- (void)generateColors:(int)i
-{
-    CGFloat iFactor = (i) / (numColors/colorLoops  - 1.0);
-    CGFloat hue = iFactor;//0.58 + (iFactor * 0.2);
-    CGFloat saturation = 0.8 + (iFactor * 0.2);
-    CGFloat brightness = 1.3 - iFactor;
-    
-    [colors addObject:[UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1.0]];
-}
 @end

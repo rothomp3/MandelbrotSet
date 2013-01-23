@@ -7,44 +7,32 @@
 //
 
 #import "RTMandelbrot.h"
-#include "complex.h"
+#include "mycomplex.h"
 
 @implementation RTMandelbrot
 @synthesize point, maxIterations;
-#if USE_PERIODICITY
-@synthesize visitedSet, numTimesPeriodicityHelped;
-#endif
-
 - (id)initWithPoint:(Complex)newPoint andMaxIterations:(int)newIter
 {
     self = [super init];
     [self setPoint:newPoint];
     [self setMaxIterations:newIter];
-    [self setZabs:-1.0];
+    [self setLowestEscape:maxIterations];
+    
     return self;
 }
 
 - (id)initWithPoint:(Complex)newPoint
 {
-    return [self initWithPoint:newPoint andMaxIterations:1];
+    return [self initWithPoint:newPoint andMaxIterations:10000];
 }
 
 - (id)init
 {
-    return [self initWithPoint:Complex(0.0, 0.0) andMaxIterations:1];
-}
-
-- (id)initWithMaxIterations:(int)newIter
-{
-    return [self initWithPoint:Complex(0,0) andMaxIterations:newIter];
+    return [self initWithPoint:Complex(0.0l, 0.0l) andMaxIterations:10000];
 }
 
 - (void)doPoint
 {
-#if USE_PERIODICITY
-    visitedSet.clear();
-#endif
-    [self setZabs:-1.0];
     double x = point.getRealPart();
     double y = point.getImaginaryPart();
     
@@ -60,24 +48,9 @@
     
     int i = 0;
     Complex z(0,0);
-    while ((z.abs2() < 4) && (i < maxIterations))
+    while ((z.abs() < 2) && (i < maxIterations))
     {
-        //z = (z * z) + point;
-        z *= z;
-        z += point;
-        // Doing it that way was a significant optimization, apparently
-#if USE_PERIODICITY
-        if([self isInValues:z])
-        {
-            [self setEscapedAt:-1];
-            numTimesPeriodicityHelped++;
-            return;
-        }
-        else
-        {
-            visitedSet.insert(z);
-        }
-#endif
+        z = (z * z) + point;
         i++;
     }
     
@@ -85,44 +58,15 @@
     {
         // This implies that point is in the set
         [self setEscapedAt:-1];
-        return;
     }
     else
     {
+        if (i < [self lowestEscape])
+            [self setLowestEscape:i];
+        if (i > [self highestEscape])
+            [self setHighestEscape:i];
         [self setEscapedAt:i];
     }
-    [self setLastZ:z];
     return;
 }
-
-- (void)setMaxIterations:(int)newMax
-{
-    if (newMax != maxIterations)
-    {
-#if USE_PERIODICITY
-        visitedSet.clear();
-        visitedSet.reserve(newMax * 8);
-#endif
-        maxIterations = newMax;
-    }
-}
-
-- (BOOL)isInValues:(Complex)value
-{
-#if USE_PERIODICITY
-    if (visitedSet.find(value) != visitedSet.end())
-        return YES;
-#endif
-    return NO;
-}
-
-- (void)setLastZ:(Complex)newZ
-{
-    if (_lastZ != newZ)
-    {
-        _lastZ = newZ;
-        _zabs = self.lastZ.abs();
-    }
-}
-
 @end

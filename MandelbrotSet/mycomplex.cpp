@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Robert Stephen Thompson. All rights reserved.
 //
 
-#include "complex.h"
+#include "mycomplex.h"
 
 
 
