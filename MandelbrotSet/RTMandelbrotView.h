@@ -21,3 +21,5 @@
 - (double)scaleX:(CGFloat)screenCoord;
 - (double)scaleY:(CGFloat)screenCoord;
 @end
+
+double logx(double value, double base);
