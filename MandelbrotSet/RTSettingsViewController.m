@@ -7,15 +7,29 @@
 //
 
 #import "RTSettingsViewController.h"
-#import "RTViewController.h"
+#import "RTMandelbrotOperation.h"
+#import "RTColorTable.h"
+#import "RTMandelSuperViewController.h"
 
 @implementation RTSettingsViewController
-- (IBAction)showMandelbrotSet:(id)sender
+@synthesize mvc;
+- (void)viewWillAppear:(BOOL)animated
 {
-    [self setNumIterations:[[iterationsField text] intValue]];
-    RTViewController* mvc = [[RTViewController alloc] init];
-    [mvc setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
-    mvc.numIterations = [self numIterations];
-    [[self navigationController] pushViewController:mvc animated:YES];
+    [super viewWillAppear:YES];
+}
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:YES];
+    if ([UIScreen mainScreen].scale != 2.0f)
+    {
+        [retinaSwitch setOn:NO];
+    }
+}
+
+- (IBAction)doOtherThing:(id)sender {
+    RTMandelSuperViewController* supermvc = [[RTMandelSuperViewController alloc] initWithNibName:@"RTMandelSuperViewController" bundle:[NSBundle mainBundle] retina:retinaSwitch.on];
+    [supermvc setMaxIterations:[[iterationsField text] intValue]];
+    [self.view endEditing:YES];
+    [[self navigationController] pushViewController:supermvc animated:YES];
 }
 @end

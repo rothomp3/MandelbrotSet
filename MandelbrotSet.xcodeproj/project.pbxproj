@@ -7,10 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E14114B516AB1E040068A083 /* RTMandelbrot.mm in Sources */ = {isa = PBXBuildFile; fileRef = E14114B416AB1E040068A083 /* RTMandelbrot.mm */; };
-		E14114B916AB56240068A083 /* RTViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = E14114B816AB56240068A083 /* RTViewController.mm */; };
-		E14114BC16AB568B0068A083 /* RTMandelbrotView.mm in Sources */ = {isa = PBXBuildFile; fileRef = E14114BB16AB568B0068A083 /* RTMandelbrotView.mm */; };
+		E110978616B099E700F8D21F /* MurmurHash3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E110978416B099E700F8D21F /* MurmurHash3.cpp */; };
+		E110978A16B0A66900F8D21F /* RTComplexHash.m in Sources */ = {isa = PBXBuildFile; fileRef = E110978916B0A66900F8D21F /* RTComplexHash.m */; };
+		E14114B516AB1E040068A083 /* RTMandelbrot.m in Sources */ = {isa = PBXBuildFile; fileRef = E14114B416AB1E040068A083 /* RTMandelbrot.m */; };
 		E14114BF16AB6BF60068A083 /* RTColorTable.m in Sources */ = {isa = PBXBuildFile; fileRef = E14114BE16AB6BF60068A083 /* RTColorTable.m */; };
+		E16F8A7D16B1FB87000114D8 /* RTMandelbrotOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = E16F8A7C16B1FB87000114D8 /* RTMandelbrotOperation.m */; };
 		E183198016AC5674008D5BB4 /* RTSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E183197F16AC5673008D5BB4 /* RTSettingsViewController.xib */; };
 		E183198316AC57F5008D5BB4 /* RTSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E183198216AC57F5008D5BB4 /* RTSettingsViewController.m */; };
 		E183198516AC8ED9008D5BB4 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E183198416AC8ED9008D5BB4 /* Default@2x.png */; };
@@ -18,24 +19,29 @@
 		E183198B16AC8F6E008D5BB4 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = E183198A16AC8F6E008D5BB4 /* Default.png */; };
 		E183198D16AC911B008D5BB4 /* retinaAppIconMandel.png in Resources */ = {isa = PBXBuildFile; fileRef = E183198C16AC911A008D5BB4 /* retinaAppIconMandel.png */; };
 		E183198F16AC9123008D5BB4 /* non-retinaAppIconMandel.png in Resources */ = {isa = PBXBuildFile; fileRef = E183198E16AC9123008D5BB4 /* non-retinaAppIconMandel.png */; };
-		E1DE2F1416B05E07000CC12A /* mycomplex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1DE2F1216B05E06000CC12A /* mycomplex.cpp */; };
+		E1B0A34116B3A4D10048FD53 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1B0A34016B3A4D10048FD53 /* CoreImage.framework */; };
+		E1B20A6116B2F25C00E8C5D7 /* RTMandelSuperViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1B20A6016B2F25C00E8C5D7 /* RTMandelSuperViewController.xib */; };
+		E1DE2F6416B25CDD000CC12A /* progressBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1DE2F6316B25CDD000CC12A /* progressBar.xib */; };
+		E1DE2F6A16B27EFB000CC12A /* RTMandelSuperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1DE2F6916B27EFA000CC12A /* RTMandelSuperViewController.m */; };
 		E1E42DC316698AD600BCBBF1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1E42DC216698AD600BCBBF1 /* UIKit.framework */; };
 		E1E42DC516698AD600BCBBF1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1E42DC416698AD600BCBBF1 /* Foundation.framework */; };
 		E1E42DC716698AD600BCBBF1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1E42DC616698AD600BCBBF1 /* CoreGraphics.framework */; };
 		E1E42DCD16698AD600BCBBF1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E1E42DCB16698AD600BCBBF1 /* InfoPlist.strings */; };
 		E1E42DCF16698AD600BCBBF1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E42DCE16698AD600BCBBF1 /* main.m */; };
-		E1E42DD316698AD600BCBBF1 /* RTAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = E1E42DD216698AD600BCBBF1 /* RTAppDelegate.mm */; };
+		E1E42DD316698AD600BCBBF1 /* RTAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E42DD216698AD600BCBBF1 /* RTAppDelegate.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E14114B316AB1E040068A083 /* RTMandelbrot.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = RTMandelbrot.h; sourceTree = "<group>"; };
-		E14114B416AB1E040068A083 /* RTMandelbrot.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RTMandelbrot.mm; sourceTree = "<group>"; };
-		E14114B716AB56240068A083 /* RTViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTViewController.h; sourceTree = "<group>"; };
-		E14114B816AB56240068A083 /* RTViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RTViewController.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		E14114BA16AB568B0068A083 /* RTMandelbrotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTMandelbrotView.h; sourceTree = "<group>"; };
-		E14114BB16AB568B0068A083 /* RTMandelbrotView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RTMandelbrotView.mm; sourceTree = "<group>"; };
+		E110978416B099E700F8D21F /* MurmurHash3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MurmurHash3.cpp; sourceTree = "<group>"; };
+		E110978516B099E700F8D21F /* MurmurHash3.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = MurmurHash3.h; sourceTree = "<group>"; };
+		E110978816B0A66900F8D21F /* RTComplexHash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTComplexHash.h; sourceTree = "<group>"; };
+		E110978916B0A66900F8D21F /* RTComplexHash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTComplexHash.m; sourceTree = "<group>"; };
+		E14114B316AB1E040068A083 /* RTMandelbrot.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = RTMandelbrot.h; sourceTree = "<group>"; };
+		E14114B416AB1E040068A083 /* RTMandelbrot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTMandelbrot.m; sourceTree = "<group>"; };
 		E14114BD16AB6BF60068A083 /* RTColorTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTColorTable.h; sourceTree = "<group>"; };
 		E14114BE16AB6BF60068A083 /* RTColorTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTColorTable.m; sourceTree = "<group>"; };
+		E16F8A7B16B1FB87000114D8 /* RTMandelbrotOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTMandelbrotOperation.h; sourceTree = "<group>"; };
+		E16F8A7C16B1FB87000114D8 /* RTMandelbrotOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTMandelbrotOperation.m; sourceTree = "<group>"; };
 		E183197F16AC5673008D5BB4 /* RTSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RTSettingsViewController.xib; sourceTree = "<group>"; };
 		E183198116AC57F5008D5BB4 /* RTSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTSettingsViewController.h; sourceTree = "<group>"; };
 		E183198216AC57F5008D5BB4 /* RTSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTSettingsViewController.m; sourceTree = "<group>"; };
@@ -44,8 +50,11 @@
 		E183198A16AC8F6E008D5BB4 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = ../Default.png; sourceTree = "<group>"; };
 		E183198C16AC911A008D5BB4 /* retinaAppIconMandel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = retinaAppIconMandel.png; path = ../retinaAppIconMandel.png; sourceTree = "<group>"; };
 		E183198E16AC9123008D5BB4 /* non-retinaAppIconMandel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "non-retinaAppIconMandel.png"; path = "../non-retinaAppIconMandel.png"; sourceTree = "<group>"; };
-		E1DE2F1216B05E06000CC12A /* mycomplex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mycomplex.cpp; sourceTree = "<group>"; };
-		E1DE2F1316B05E06000CC12A /* mycomplex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mycomplex.h; sourceTree = "<group>"; };
+		E1B0A34016B3A4D10048FD53 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
+		E1B20A6016B2F25C00E8C5D7 /* RTMandelSuperViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RTMandelSuperViewController.xib; sourceTree = "<group>"; };
+		E1DE2F6316B25CDD000CC12A /* progressBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = progressBar.xib; sourceTree = "<group>"; };
+		E1DE2F6816B27EFA000CC12A /* RTMandelSuperViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTMandelSuperViewController.h; sourceTree = "<group>"; };
+		E1DE2F6916B27EFA000CC12A /* RTMandelSuperViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTMandelSuperViewController.m; sourceTree = "<group>"; };
 		E1E42DBE16698AD600BCBBF1 /* MandelbrotSet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MandelbrotSet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1E42DC216698AD600BCBBF1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E1E42DC416698AD600BCBBF1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -55,7 +64,7 @@
 		E1E42DCE16698AD600BCBBF1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E1E42DD016698AD600BCBBF1 /* MandelbrotSet-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MandelbrotSet-Prefix.pch"; sourceTree = "<group>"; };
 		E1E42DD116698AD600BCBBF1 /* RTAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RTAppDelegate.h; sourceTree = "<group>"; };
-		E1E42DD216698AD600BCBBF1 /* RTAppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = RTAppDelegate.mm; sourceTree = "<group>"; };
+		E1E42DD216698AD600BCBBF1 /* RTAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RTAppDelegate.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1B0A34116B3A4D10048FD53 /* CoreImage.framework in Frameworks */,
 				E1E42DC316698AD600BCBBF1 /* UIKit.framework in Frameworks */,
 				E1E42DC516698AD600BCBBF1 /* Foundation.framework in Frameworks */,
 				E1E42DC716698AD600BCBBF1 /* CoreGraphics.framework in Frameworks */,
@@ -92,6 +102,7 @@
 		E1E42DC116698AD600BCBBF1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E1B0A34016B3A4D10048FD53 /* CoreImage.framework */,
 				E1E42DC216698AD600BCBBF1 /* UIKit.framework */,
 				E1E42DC416698AD600BCBBF1 /* Foundation.framework */,
 				E1E42DC616698AD600BCBBF1 /* CoreGraphics.framework */,
@@ -102,21 +113,25 @@
 		E1E42DC816698AD600BCBBF1 /* MandelbrotSet */ = {
 			isa = PBXGroup;
 			children = (
-				E1DE2F1216B05E06000CC12A /* mycomplex.cpp */,
-				E1DE2F1316B05E06000CC12A /* mycomplex.h */,
+				E1DE2F6816B27EFA000CC12A /* RTMandelSuperViewController.h */,
+				E1DE2F6916B27EFA000CC12A /* RTMandelSuperViewController.m */,
+				E1B20A6016B2F25C00E8C5D7 /* RTMandelSuperViewController.xib */,
+				E110978416B099E700F8D21F /* MurmurHash3.cpp */,
+				E110978516B099E700F8D21F /* MurmurHash3.h */,
 				E14114B316AB1E040068A083 /* RTMandelbrot.h */,
-				E14114B416AB1E040068A083 /* RTMandelbrot.mm */,
+				E14114B416AB1E040068A083 /* RTMandelbrot.m */,
+				E110978816B0A66900F8D21F /* RTComplexHash.h */,
+				E110978916B0A66900F8D21F /* RTComplexHash.m */,
 				E1E42DD116698AD600BCBBF1 /* RTAppDelegate.h */,
-				E1E42DD216698AD600BCBBF1 /* RTAppDelegate.mm */,
-				E14114B716AB56240068A083 /* RTViewController.h */,
-				E14114BA16AB568B0068A083 /* RTMandelbrotView.h */,
-				E14114BB16AB568B0068A083 /* RTMandelbrotView.mm */,
+				E1E42DD216698AD600BCBBF1 /* RTAppDelegate.m */,
 				E14114BD16AB6BF60068A083 /* RTColorTable.h */,
 				E14114BE16AB6BF60068A083 /* RTColorTable.m */,
-				E14114B816AB56240068A083 /* RTViewController.mm */,
+				E16F8A7B16B1FB87000114D8 /* RTMandelbrotOperation.h */,
+				E16F8A7C16B1FB87000114D8 /* RTMandelbrotOperation.m */,
 				E183197F16AC5673008D5BB4 /* RTSettingsViewController.xib */,
 				E183198116AC57F5008D5BB4 /* RTSettingsViewController.h */,
 				E183198216AC57F5008D5BB4 /* RTSettingsViewController.m */,
+				E1DE2F6316B25CDD000CC12A /* progressBar.xib */,
 				E1E42DC916698AD600BCBBF1 /* Supporting Files */,
 			);
 			path = MandelbrotSet;
@@ -197,6 +212,8 @@
 				E183198B16AC8F6E008D5BB4 /* Default.png in Resources */,
 				E183198D16AC911B008D5BB4 /* retinaAppIconMandel.png in Resources */,
 				E183198F16AC9123008D5BB4 /* non-retinaAppIconMandel.png in Resources */,
+				E1DE2F6416B25CDD000CC12A /* progressBar.xib in Resources */,
+				E1B20A6116B2F25C00E8C5D7 /* RTMandelSuperViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -208,13 +225,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				E1E42DCF16698AD600BCBBF1 /* main.m in Sources */,
-				E1E42DD316698AD600BCBBF1 /* RTAppDelegate.mm in Sources */,
-				E14114B516AB1E040068A083 /* RTMandelbrot.mm in Sources */,
-				E14114B916AB56240068A083 /* RTViewController.mm in Sources */,
-				E14114BC16AB568B0068A083 /* RTMandelbrotView.mm in Sources */,
+				E1E42DD316698AD600BCBBF1 /* RTAppDelegate.m in Sources */,
+				E14114B516AB1E040068A083 /* RTMandelbrot.m in Sources */,
 				E14114BF16AB6BF60068A083 /* RTColorTable.m in Sources */,
 				E183198316AC57F5008D5BB4 /* RTSettingsViewController.m in Sources */,
-				E1DE2F1416B05E07000CC12A /* mycomplex.cpp in Sources */,
+				E110978616B099E700F8D21F /* MurmurHash3.cpp in Sources */,
+				E110978A16B0A66900F8D21F /* RTComplexHash.m in Sources */,
+				E16F8A7D16B1FB87000114D8 /* RTMandelbrotOperation.m in Sources */,
+				E1DE2F6A16B27EFB000CC12A /* RTMandelSuperViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,13 +303,13 @@
 		E1E42DDD16698AD600BCBBF1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Robert Thompson";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Robert Thompson (369MM22663)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MandelbrotSet/MandelbrotSet-Prefix.pch";
 				INFOPLIST_FILE = "MandelbrotSet/MandelbrotSet-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "FF2CBD8B-9B05-40F5-99BD-765BC7DB6124";
+				PROVISIONING_PROFILE = "495B62AC-83D6-4D78-B70E-3B23AE224CA8";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -300,13 +318,13 @@
 		E1E42DDE16698AD600BCBBF1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Robert Thompson";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Robert Thompson (369MM22663)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MandelbrotSet/MandelbrotSet-Prefix.pch";
 				INFOPLIST_FILE = "MandelbrotSet/MandelbrotSet-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "FF2CBD8B-9B05-40F5-99BD-765BC7DB6124";
+				PROVISIONING_PROFILE = "495B62AC-83D6-4D78-B70E-3B23AE224CA8";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

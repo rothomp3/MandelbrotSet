@@ -7,7 +7,6 @@
 //
 
 #import "RTAppDelegate.h"
-#import "RTViewController.h"
 #import "RTSettingsViewController.h"
 
 @implementation RTAppDelegate
@@ -24,7 +23,6 @@
     [[self window] setRootViewController:navControl];
     self.window.backgroundColor = [UIColor blackColor];
     [self.window makeKeyAndVisible];
-    
     return YES;
 }
 

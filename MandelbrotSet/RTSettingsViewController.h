@@ -7,13 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@interface RTSettingsViewController : UIViewController
+@class RTViewController;
+@interface RTSettingsViewController : UIViewController <UIPopoverControllerDelegate>
 {
     IBOutlet UITextField* iterationsField;
+    __weak IBOutlet UISwitch *retinaSwitch;
+    
+    UIPopoverController* imagePopover;
 }
 @property (nonatomic) int numIterations;
+@property (strong, nonatomic) RTViewController* mvc;
+@property (strong, nonatomic) UIViewController* pc;
 
-- (IBAction)showMandelbrotSet:(id)sender;
+- (IBAction)doOtherThing:(id)sender;
 
 @end
