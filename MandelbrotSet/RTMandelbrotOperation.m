@@ -12,6 +12,15 @@
 
 #define USE_CI 0
 
+void printBits(unsigned int num)
+{
+    for(int bit=0;bit<(sizeof(unsigned int) * 8); bit++)
+    {
+        printf("%i ", num & 0x01);
+        num = num >> 1;
+    }
+}
+
 typedef struct
 {
     int numIterations;
@@ -75,13 +84,10 @@ typedef struct
         void (^innerMandelthing)(size_t j) = ^(size_t j)
         {
             float x = [self scaleX:i];
-            float y = [self scaleY:j];/*
-            RTMandelbrot* parallelbrot = [[RTMandelbrot alloc] initWithPoint:(x + y*I) andMaxIterations:self.mandelbrot.maxIterations];
-            [parallelbrot doPoint];
-            bitsMapped[i][j].numIterations = [parallelbrot escapedAt];
-            bitsMapped[i][j].z = [parallelbrot zn];
-                                       */
+            float y = [self scaleY:j];
+            
             int k = 1;
+            
             complex float z = 0.0f;
             
             float y2 = y * y;
@@ -107,19 +113,18 @@ typedef struct
             
             while ((k < maxIterations))
             {
-                float zrr = zr*zr;
-                float zii = zi*zi;
-                
-                if (zrr + zii >= 4.0f)
+                // Check for bailout at radius 2
+                if (zr*zr + zi*zi >= 4.0f)
                 {
                     break;
                 }
+                
+                // Do the Mandelbrot (/dance)
                 z = (z * z) + (x + y*I);
-                //z = (2.8 * zr * zi + y) + (zrr - zii + x)*I;
-                //zr = 2.0f * zr * zi + y;
-                //zi = zrr - zii + x;
+
                 zr = crealf(z);
                 zi = cimagf(z);
+                
                 // period checking from wiki
                 float xDiff = fabsf(zr - hx);
                 if (xDiff < 1e-17f)
@@ -168,16 +173,17 @@ typedef struct
     };
     dispatch_async(dispatch_get_main_queue(), ^(void) { [self.progressLabel setText:@"Calculating escapes…"]; });
     dispatch_apply(bounds.size.width, queue, mandelthing);
+    
+#if USE_CI
     int width = bounds.size.width;
     int height = bounds.size.height;
-    
-    int32_t* bitmapDataData = malloc(sizeof(int32_t) * width * height);
-    int32_t** bitmapData = malloc(sizeof(int32_t*) * width);
+    uint32_t* bitmapDataData = malloc(sizeof(uint32_t) * width * height);
+    uint32_t** bitmapData = malloc(sizeof(uint32_t*) * width);
     for (int a = 0; a < width; a++)
     {
         bitmapData[a] = bitmapDataData + (a * height);
     }
-    
+#endif
     pointInfo point;
     completed = 0;
     dispatch_sync(dispatch_get_main_queue(), ^(void) { [self.progressLabel setText:@"Drawing bitmap…"]; });
@@ -192,22 +198,23 @@ typedef struct
             }
             else
             {
-                float vz = point.numIterations - log2l(log2l(cabs(point.z)));
+                float vz = point.numIterations - log2f(log2f(cabs(point.z)));
                 vz = vz * iterationMagnitude;
-                int colorNumber = ((int)(truncl(vz)) % (self.colorTable.count));
+                int colorNumber = ((int)(truncf(vz)) % (self.colorTable.count));
 #if USE_CI
                 CGFloat color[4];
                 [self.colorTable[colorNumber] getRed:&color[0] green:&color[1] blue:&color[2] alpha:&color[3]];
                 for (int m = 0; m < 4; m++)
                 {
-                    int8_t* pixelPtr = (int8_t*)(&(bitmapData[i][j]));
-                    pixelPtr[0] = (int)color[0] % 255;
-                    pixelPtr[1] = (int)color[1] % 255;
-                    pixelPtr[2] = (int)color[2] % 255;
-                    pixelPtr[3] = (int)color[3] % 255;
+                    uint8_t* pixelPtr = (uint8_t*)(&(bitmapData[i][j]));
+                    pixelPtr[2] = (uint8_t)(ceilf(color[0] * 255.0f));
+                    pixelPtr[1] = (uint8_t)(ceilf(color[1] * 255.0f));
+                    pixelPtr[0] = (uint8_t)(ceilf(color[2] * 255.0f));
+                    pixelPtr[3] = 255;
                 }
 #else
                 CGContextSetFillColorWithColor(context, [self.colorTable[colorNumber] CGColor]);
+                //CGContextSetRGBFillColor(context, 0.01f * (float)i, 0.0f, 0.0f, 1.0f);
 #endif
             }
             pixel.origin.x = i;
@@ -224,16 +231,25 @@ typedef struct
         }
     }
 #if USE_CI
-    NSData* bitmap = [NSData dataWithBytesNoCopy:bitmapDataData length:(width * height)];
-    CIImage *theImage = [CIImage imageWithBitmapData:bitmap bytesPerRow:bitmapBytesPerRow size:CGSizeMake(width, height) format:kCIFormatRGBA8 colorSpace:colorSpace];
+    NSData* bitmap = [NSData dataWithBytes:bitmapDataData length:(width * height)];
+    //CIContext* ctx = [CIContext contextWithOptions:@{kCIContextUseSoftwareRenderer:@NO}];
+    
+    CIImage *theImage = [CIImage imageWithBitmapData:bitmap bytesPerRow:bitmapBytesPerRow size:CGSizeMake(width, height) format:kCIFormatARGB8 colorSpace:colorSpace];
+    
+
+    //UIImage *theUIImage = [[UIImage alloc] initWithBitma];
     [self setResult:[UIImage imageWithCIImage:theImage]];
-    free(data);
-    free(bitsMapped);
+    //[self setResult:theUIImage];
+    free(bitmapDataData);
+    free(bitmapData);
+
 #else
     CGImageRef image = CGBitmapContextCreateImage(context);
     [self setResult:[UIImage imageWithCGImage:image]];
     CGImageRelease(image);
 #endif
+    free(data);
+    free(bitsMapped);
     CGColorSpaceRelease(colorSpace);
     CGContextRelease(context);
     dispatch_sync(dispatch_get_main_queue(), ^(void) { [self.delegate dismissProgress]; });

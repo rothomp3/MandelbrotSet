@@ -42,7 +42,6 @@
     
     colorTable = [[RTColorTable alloc] initWithColors:500];
     self.progressController = [[UIViewController alloc] initWithNibName:@"progressBar" bundle:[NSBundle mainBundle]];   
-    //[self doTheMandelbrot];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -83,6 +82,7 @@
     else
         currScaleFactor /= 2.0f;
     
+    [self.mandelImage setImage:nil];
     [self doTheMandelbrot];
 }
 
