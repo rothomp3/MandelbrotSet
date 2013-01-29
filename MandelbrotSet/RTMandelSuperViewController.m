@@ -18,24 +18,17 @@
 @implementation RTMandelSuperViewController
 @synthesize queue, colorTable, currScaleFactor, center;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil retina:(BOOL)ret
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.retina = ret;
+        self.retina = ([UIScreen mainScreen].scale<2.0)?NO:YES;
         queue = [[NSOperationQueue alloc] init];
         self.firstAppearance = YES;
-        currScaleFactor = self.retina?200.0f:100.0f;
-        center = CGPointMake(-1.0f, 0.0f);
         colorTable = [[RTColorTable alloc] initWithColors:500];
         self.progressController = [[UIViewController alloc] initWithNibName:@"progressBar" bundle:[NSBundle mainBundle]];
     }
     return self;
-}
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    return [self initWithNibName:nibNameOrNil bundle:nibBundleOrNil retina:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -43,6 +36,8 @@
     [super viewDidAppear:animated];
     if(self.firstAppearance)//if this is the first time we've seen this view
     {
+        currScaleFactor = self.retina?200.0f:100.0f; // set the default zoom
+        
         self.firstAppearance = NO;
         [self doTheMandelbrot];
     }

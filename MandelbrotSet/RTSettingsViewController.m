@@ -35,8 +35,11 @@
 }
 
 - (IBAction)doOtherThing:(id)sender {
-    RTMandelSuperViewController* supermvc = [[RTMandelSuperViewController alloc] initWithNibName:@"RTMandelSuperViewController" bundle:[NSBundle mainBundle] retina:retinaSwitch.on];
-    [supermvc setMaxIterations:(int)[self.iterationsSlider value]];
+    RTMandelSuperViewController* supermvc = [[RTMandelSuperViewController alloc] initWithNibName:@"RTMandelSuperViewController" bundle:[NSBundle mainBundle]];
+    [supermvc setMaxIterations:(int)[self.iterationsSlider value]]; // set up the iterations
+    [supermvc setCenter:CGPointMake(-1.0f, 0.0f)]; // set up the center
+    [supermvc setRetina:retinaSwitch.on];
+    
     [self.view endEditing:YES];
     [[self navigationController] pushViewController:supermvc animated:YES];
 }

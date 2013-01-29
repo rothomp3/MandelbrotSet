@@ -25,7 +25,6 @@
 @property float currScaleFactor;
 @property CGPoint center;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil retina:(BOOL)ret;
 - (void)dismissProgress;
 - (void)doTheMandelbrot;
 - (float)scaleX:(CGFloat)screenCoord;
