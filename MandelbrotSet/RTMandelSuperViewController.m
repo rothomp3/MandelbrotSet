@@ -25,7 +25,7 @@
         self.retina = ([UIScreen mainScreen].scale<2.0)?NO:YES;
         queue = [[NSOperationQueue alloc] init];
         self.firstAppearance = YES;
-        colorTable = [[RTColorTable alloc] initWithColors:500];
+        colorTable = [[RTColorTable alloc] initWithColors:2000];
         self.progressController = [[UIViewController alloc] initWithNibName:@"progressBar" bundle:[NSBundle mainBundle]];
     }
     return self;

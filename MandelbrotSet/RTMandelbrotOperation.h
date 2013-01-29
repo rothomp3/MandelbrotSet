@@ -27,6 +27,6 @@
 
 - (id)initWithBounds:(CGRect)newBounds retina:(BOOL)ret;
 
-- (float)scaleX:(CGFloat)screenCoord;
-- (float)scaleY:(CGFloat)screenCoord;
+- (long double)scaleX:(CGFloat)screenCoord;
+- (long double)scaleY:(CGFloat)screenCoord;
 @end

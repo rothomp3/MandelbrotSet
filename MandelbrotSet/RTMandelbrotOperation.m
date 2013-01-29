@@ -11,7 +11,7 @@
 #import "RTColorTable.h"
 
 #define USE_CI 0
-
+#define float long double
 void printBits(unsigned int num)
 {
     for(int bit=0;bit<(sizeof(unsigned int) * 8); bit++)
@@ -255,12 +255,12 @@ typedef struct
     dispatch_sync(dispatch_get_main_queue(), ^(void) { [self.delegate dismissProgress]; });
 }
 
-- (float)scaleX:(CGFloat)screenCoord
+- (long double)scaleX:(CGFloat)screenCoord
 {
     return ((float)screenCoord - (float)(screenCenter.x))/currScaleFactor + (float)(center.x);
 }
 
-- (float)scaleY:(CGFloat)screenCoord
+- (long double)scaleY:(CGFloat)screenCoord
 {
     return (0.0f - ((float)screenCoord - (float)(screenCenter.y)))/currScaleFactor + (float)(center.y);
 }
