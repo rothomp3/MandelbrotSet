@@ -13,11 +13,17 @@
 
 @implementation RTSettingsViewController
 @synthesize mvc;
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [[self view] setBackgroundColor:[UIColor colorWithRed:0.9f green:0.9f blue:1.0f alpha:1.0f]];
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
-    [[self view] setBackgroundColor:[UIColor colorWithRed:0.9f green:0.9f blue:1.0f alpha:1.0f]];
 }
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:YES];

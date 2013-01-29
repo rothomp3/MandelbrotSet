@@ -135,4 +135,9 @@
     
     return (0.0f - ((float)screenCoord - (float)(screenCenter)))/currScaleFactor + (float)(center.y);
 }
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    [self doTheMandelbrot];
+}
 @end
