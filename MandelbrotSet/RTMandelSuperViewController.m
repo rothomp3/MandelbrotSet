@@ -27,6 +27,8 @@
         self.firstAppearance = YES;
         currScaleFactor = self.retina?200.0f:100.0f;
         center = CGPointMake(-1.0f, 0.0f);
+        colorTable = [[RTColorTable alloc] initWithColors:500];
+        self.progressController = [[UIViewController alloc] initWithNibName:@"progressBar" bundle:[NSBundle mainBundle]];
     }
     return self;
 }
@@ -34,14 +36,6 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     return [self initWithNibName:nibNameOrNil bundle:nibBundleOrNil retina:YES];
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-    colorTable = [[RTColorTable alloc] initWithColors:500];
-    self.progressController = [[UIViewController alloc] initWithNibName:@"progressBar" bundle:[NSBundle mainBundle]];   
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -100,7 +94,7 @@
     
     self.mandelOp = [[RTMandelbrotOperation alloc] initWithBounds:mandelBounds retina:self.retina];
     [self.mandelOp setMaxIterations:[self maxIterations]];
-    [self.mandelOp setColorTable:[[colorTable colors] copy]];
+    [self.mandelOp setColorTable:[colorTable colors]];
     [self.mandelOp setProgress:(UIProgressView*)[self.progressController.view viewWithTag:314]];
     [self.mandelOp setProgressLabel:(UILabel*)[self.progressController.view viewWithTag:10]];
     [self.mandelOp setDelegate:self];
