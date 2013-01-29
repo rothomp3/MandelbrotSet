@@ -25,12 +25,17 @@
     {
         [retinaSwitch setOn:NO];
     }
+    [[self sliderLabel] setText:[NSString stringWithFormat:@"%d", (int)[self.iterationsSlider value]]];
 }
 
 - (IBAction)doOtherThing:(id)sender {
     RTMandelSuperViewController* supermvc = [[RTMandelSuperViewController alloc] initWithNibName:@"RTMandelSuperViewController" bundle:[NSBundle mainBundle] retina:retinaSwitch.on];
-    [supermvc setMaxIterations:[[iterationsField text] intValue]];
+    [supermvc setMaxIterations:(int)[self.iterationsSlider value]];
     [self.view endEditing:YES];
     [[self navigationController] pushViewController:supermvc animated:YES];
+}
+
+- (IBAction)sliderValueChanged:(UISlider *)sender {
+    [[self sliderLabel] setText:[NSString stringWithFormat:@"%d", (int)[self.iterationsSlider value]]];
 }
 @end
