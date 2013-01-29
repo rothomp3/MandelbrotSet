@@ -11,7 +11,6 @@
 #import "RTColorTable.h"
 
 #define USE_CI 0
-#define float long double
 void printBits(unsigned int num)
 {
     for(int bit=0;bit<(sizeof(unsigned int) * 8); bit++)
@@ -24,7 +23,7 @@ void printBits(unsigned int num)
 typedef struct
 {
     int numIterations;
-    float complex z;
+    long double complex z;
 } pointInfo;
 
 @implementation RTMandelbrotOperation
@@ -68,7 +67,7 @@ typedef struct
     screenCenter.y = bounds.size.height / 2.0f;
     
     CGRect pixel = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
-    float iterationMagnitude = log10l(self.maxIterations) * 6.43f;
+    long double iterationMagnitude = log10l(self.maxIterations) * 6.43f;
     
     size_t totalBitmapSize = bounds.size.width * bounds.size.height;
     pointInfo* data = malloc(sizeof(pointInfo) * totalBitmapSize);
@@ -83,21 +82,21 @@ typedef struct
     {
         void (^innerMandelthing)(size_t j) = ^(size_t j)
         {
-            float x = [self scaleX:i];
-            float y = [self scaleY:j];
+            long double x = [self scaleX:i];
+            long double y = [self scaleY:j];
             
             int k = 1;
             
-            complex float z = 0.0f;
+            complex long double z = 0.0f;
             
-            float y2 = y * y;
-            float x2 = x * x;
+            long double y2 = y * y;
+            long double x2 = x * x;
             // next two lines are for checking the main cardioid
-            float q = x2 - (0.5f * x) + 0.0625f + y2;
-            float r = q * (q + (x - 0.25f));
+            long double q = x2 - (0.5f * x) + 0.0625f + y2;
+            long double r = q * (q + (x - 0.25f));
             
-            float zr = 0.0f;
-            float zi = 0.0f;
+            long double zr = 0.0f;
+            long double zi = 0.0f;
             if ((x2 + x + x + 1.0f + y2 < 0.0625f) || (r < (0.25f * y2))) // inside the period-2 bulb or main carioid
             {
                 k = maxIterations;
@@ -108,8 +107,8 @@ typedef struct
             int checkCounter = 0;
             int update = 10;
             int updateCounter = 0;
-            float hx = 0.0f;
-            float hy = 0.0f;
+            long double hx = 0.0f;
+            long double hy = 0.0f;
             
             while ((k < maxIterations))
             {
@@ -126,10 +125,10 @@ typedef struct
                 zi = cimagf(z);
                 
                 // period checking from wiki
-                float xDiff = fabsf(zr - hx);
+                long double xDiff = fabsf(zr - hx);
                 if (xDiff < 1e-17f)
                 {
-                    float yDiff = fabsf(zi - hy);
+                    long double yDiff = fabsf(zi - hy);
                     if (yDiff < 1e-17f)
                     {
                         k = maxIterations;
@@ -165,7 +164,7 @@ typedef struct
             bitsMapped[i][j].z = z;
             completed++;
             dispatch_async(dispatch_get_main_queue(), ^(void) {
-                float prog = (float)completed / (float)totalBitmapSize;
+                long double prog = (long double)completed / (long double)totalBitmapSize;
                 self.progress.progress = prog;
             });
         };
@@ -198,11 +197,11 @@ typedef struct
             }
             else
             {
-                float vz = point.numIterations - log2f(log2f(cabs(point.z)));
+                long double vz = point.numIterations - log2f(log2f(cabs(point.z)));
                 vz = vz * iterationMagnitude;
                 int colorNumber = ((int)(truncf(vz)) % (self.colorTable.count));
 #if USE_CI
-                CGFloat color[4];
+                CGlong double color[4];
                 [self.colorTable[colorNumber] getRed:&color[0] green:&color[1] blue:&color[2] alpha:&color[3]];
                 for (int m = 0; m < 4; m++)
                 {
@@ -214,7 +213,7 @@ typedef struct
                 }
 #else
                 CGContextSetFillColorWithColor(context, [self.colorTable[colorNumber] CGColor]);
-                //CGContextSetRGBFillColor(context, 0.01f * (float)i, 0.0f, 0.0f, 1.0f);
+                //CGContextSetRGBFillColor(context, 0.01f * (long double)i, 0.0f, 0.0f, 1.0f);
 #endif
             }
             pixel.origin.x = i;
@@ -222,7 +221,7 @@ typedef struct
             
             completed++;
             dispatch_async(dispatch_get_main_queue(), ^(void) {
-                float prog = (float)completed / (float)totalBitmapSize;
+                long double prog = (long double)completed / (long double)totalBitmapSize;
                 self.progress.progress = prog;
             });
 #if !USE_CI
@@ -257,11 +256,11 @@ typedef struct
 
 - (long double)scaleX:(CGFloat)screenCoord
 {
-    return ((float)screenCoord - (float)(screenCenter.x))/currScaleFactor + (float)(center.x);
+    return ((long double)screenCoord - (long double)(screenCenter.x))/currScaleFactor + (long double)(center.x);
 }
 
 - (long double)scaleY:(CGFloat)screenCoord
 {
-    return (0.0f - ((float)screenCoord - (float)(screenCenter.y)))/currScaleFactor + (float)(center.y);
+    return (0.0f - ((long double)screenCoord - (long double)(screenCenter.y)))/currScaleFactor + (long double)(center.y);
 }
 @end
