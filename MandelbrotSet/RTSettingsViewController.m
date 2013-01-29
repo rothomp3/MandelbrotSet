@@ -16,7 +16,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
-    //[[self view] setBackgroundColor:[UIColor colorWithRed:1.0f green:(88.0f / 255.0f) blue:(49.0f / 255.0f) alpha:1.0f]];
+    [[self view] setBackgroundColor:[UIColor colorWithRed:0.9f green:0.9f blue:1.0f alpha:1.0f]];
 }
 - (void)viewDidAppear:(BOOL)animated
 {
