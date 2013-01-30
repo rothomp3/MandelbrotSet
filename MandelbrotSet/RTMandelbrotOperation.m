@@ -82,27 +82,32 @@ typedef struct
     {
         void (^innerMandelthing)(size_t j) = ^(size_t j)
         {
+            // first we get the correctly scaled (x,y) point c
             long double x = [self scaleX:i];
             long double y = [self scaleY:j];
+            //complex long double c = x + y*I;
             
+            // Nothing fails after zero iterations…
             int k = 1;
             
+
             complex long double z = 0.0f;
             
-            long double y2 = y * y;
-            long double x2 = x * x;
+            // only do these calculations once
+            long double y2 = y * y; // imaginary part of c, squared
+            long double x2 = x * x; // real part of c, squared
+            
             // next two lines are for checking the main cardioid
             long double q = x2 - (0.5f * x) + 0.0625f + y2;
             long double r = q * (q + (x - 0.25f));
-            
-            long double zr = 0.0f;
-            long double zi = 0.0f;
+
             if ((x2 + x + x + 1.0f + y2 < 0.0625f) || (r < (0.25f * y2))) // inside the period-2 bulb or main carioid
             {
                 k = maxIterations;
                 z = x + y*I;
             }
             
+            // These variables are setup for the period checking
             int check = 3;
             int checkCounter = 0;
             int update = 10;
@@ -110,6 +115,8 @@ typedef struct
             long double hx = 0.0f;
             long double hy = 0.0f;
             
+            long double zr = 0.0f;
+            long double zi = 0.0f;
             while ((k < maxIterations))
             {
                 // Check for bailout at radius 2
@@ -121,14 +128,14 @@ typedef struct
                 // Do the Mandelbrot (/dance)
                 z = (z * z) + (x + y*I);
 
-                zr = crealf(z);
-                zi = cimagf(z);
+                zr = creall(z);
+                zi = cimagl(z);
                 
                 // period checking from wiki
-                long double xDiff = fabsf(zr - hx);
+                long double xDiff = fabsl(zr - hx);
                 if (xDiff < 1e-17f)
                 {
-                    long double yDiff = fabsf(zi - hy);
+                    long double yDiff = fabsl(zi - hy);
                     if (yDiff < 1e-17f)
                     {
                         k = maxIterations;

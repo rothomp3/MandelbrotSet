@@ -39,7 +39,7 @@
     [supermvc setMaxIterations:(int)[self.iterationsSlider value]]; // set up the iterations
     [supermvc setCenter:CGPointMake(-1.0f, 0.0f)]; // set up the center
     [supermvc setRetina:retinaSwitch.on];
-    
+    supermvc.center = CGPointMake([[self.xCoord text] floatValue], [[self.yCoord text] floatValue]);
     [self.view endEditing:YES];
     [[self navigationController] pushViewController:supermvc animated:YES];
 }

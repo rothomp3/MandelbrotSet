@@ -19,6 +19,8 @@
 @property (nonatomic) int numIterations;
 @property (strong, nonatomic) RTViewController* mvc;
 @property (strong, nonatomic) UIViewController* pc;
+@property (weak, nonatomic) IBOutlet UITextField *xCoord;
+@property (weak, nonatomic) IBOutlet UITextField *yCoord;
 
 - (IBAction)doOtherThing:(id)sender;
 - (IBAction)sliderValueChanged:(UISlider *)sender;

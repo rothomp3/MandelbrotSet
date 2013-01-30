@@ -53,26 +53,10 @@
 
 - (IBAction)handleGesture:(UITapGestureRecognizer *)sender {
     CGPoint point = [sender locationInView:[self view]];
-    
-    //translate the y coordinate to CGContextland
-    point.y = (point.y - self.view.bounds.size.height) * -1.0f;
-    
-    if (self.retina)
-    {
-        point.x *= 2.0f;
-        point.y *= 2.0f;
-    }
-    
-    center.x = [self scaleX:point.x];
-    center.y = [self scaleY:point.y];
-
-    if ([sender numberOfTouches] < 2)
-        currScaleFactor *= 2.0f;
-    else
-        currScaleFactor /= 2.0f;
-    
-    [self.mandelImage setImage:nil];
-    [self doTheMandelbrot];
+    float zoomAmount = 2;
+    if ([sender numberOfTouches] > 1)
+        zoomAmount = 0.5;
+    [self redoTheMandelbrot:point zoom:zoomAmount];
 }
 
 - (void)dismissProgress
@@ -105,6 +89,30 @@
     [[self navigationController] pushViewController:self.progressController animated:NO] ;
 }
 
+- (IBAction)handlePinch:(UIPinchGestureRecognizer *)gesture
+{
+    if (gesture.state == UIGestureRecognizerStateEnded
+        || gesture.state == UIGestureRecognizerStateChanged) {
+        //NSLog(@"gesture.scale = %f", gesture.scale);
+        
+        CGFloat currentScale = self.view.frame.size.width / self.view.bounds.size.width;
+        CGFloat newScale = currentScale * gesture.scale;
+        
+        CGAffineTransform transform = CGAffineTransformMakeScale(newScale, newScale);
+        self.view.transform = transform;
+        gesture.scale = 1;
+        
+        if (gesture.state == UIGestureRecognizerStateEnded)
+        {
+            CGPoint point = [gesture locationInView:self.view];
+            float zoomAmount;
+            zoomAmount = newScale;
+            [self redoTheMandelbrot:point zoom:zoomAmount];
+            
+        }
+    }
+}
+
 - (float)scaleX:(CGFloat)screenCoord
 {
     CGFloat screenCenter = self.view.bounds.size.width;
@@ -127,6 +135,28 @@
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
+    [self doTheMandelbrot];
+}
+
+- (void)redoTheMandelbrot:(CGPoint)point zoom:(float)zoomAmount
+{
+    self.view.transform = CGAffineTransformIdentity; // set the view back to normal before drawing again
+    
+    //translate the y coordinate to CGContextland
+    point.y = (point.y - self.view.bounds.size.height) * -1.0f;
+    
+    if (self.retina)
+    {
+        point.x *= 2.0f;
+        point.y *= 2.0f;
+    }
+    
+    center.x = [self scaleX:point.x];
+    center.y = [self scaleY:point.y];
+    
+    currScaleFactor *= zoomAmount;
+    
+    [self.mandelImage setImage:nil];
     [self doTheMandelbrot];
 }
 @end

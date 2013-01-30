@@ -29,4 +29,7 @@
 - (void)doTheMandelbrot;
 - (float)scaleX:(CGFloat)screenCoord;
 - (float)scaleY:(CGFloat)screenCoord;
+
+- (IBAction)handlePinch:(UIGestureRecognizer*)gr;
+- (void)redoTheMandelbrot:(CGPoint)point zoom:(float)zoomAmount;
 @end
