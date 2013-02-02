@@ -14,6 +14,7 @@
 @interface RTMandelSuperViewController : UIViewController <UIGestureRecognizerDelegate, RTMandelbrotOperationDelegate>
 {
     float _currScaleFactor;
+    NSTimer* saveLabelTimer;
 }
 @property (weak, nonatomic) IBOutlet UILabel *iterationsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *zoomLabel;
@@ -26,6 +27,7 @@
 @property (strong) RTColorTable* colorTable;
 @property BOOL firstAppearance;
 @property CGPoint center;
+@property (weak, nonatomic) IBOutlet UILabel *savedLabel;
 
 - (void)dismissProgress;
 - (void)doTheMandelbrot;
@@ -34,6 +36,8 @@
 
 - (IBAction)handlePinch:(UIGestureRecognizer*)gr;
 - (void)redoTheMandelbrot:(CGPoint)point zoom:(float)zoomAmount;
+
+- (IBAction)save:(id)sender;
 
 - (void)setCurrScaleFactor:(float)newFactor;
 - (float)currScaleFactor;

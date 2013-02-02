@@ -10,6 +10,8 @@
 #import "RTMandelbrotOperation.h"
 #import "RTMandelbrot.h"
 #import "RTColorTable.h"
+#import "AssetsLibrary/AssetsLibrary.h"
+#import "UIKit/UIView.h"
 
 @interface RTMandelSuperViewController ()
 
@@ -28,6 +30,9 @@
         colorTable = [[RTColorTable alloc] initWithColors:2000];
         self.progressController = [[UIViewController alloc] initWithNibName:@"progressBar" bundle:[NSBundle mainBundle]];
         [self.progressController.view setBackgroundColor:[UIColor colorWithRed:0.9f green:0.9f blue:1.0f alpha:1.0f]];
+        
+        UIBarButtonItem* editItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(save:)];
+        [self.navigationItem setRightBarButtonItem:editItem];
     }
     return self;
 }
@@ -58,6 +63,7 @@
     self.mandelOp = nil;
     self.colorTable = nil;
     self.progressController = nil;
+    saveLabelTimer = nil;
 }
 
 - (IBAction)handleGesture:(UITapGestureRecognizer *)sender {
@@ -172,5 +178,20 @@
     
     [self.mandelImage setImage:nil];
     [self doTheMandelbrot];
+}
+
+- (IBAction)save:(id)sender
+{
+    ALAssetsLibrary* library = [[ALAssetsLibrary alloc] init];
+    
+    [library writeImageToSavedPhotosAlbum:[self.mandelImage.image CGImage] metadata:@{@"orientation":[NSNumber numberWithInt:[self.mandelImage.image imageOrientation]], @"center.x":[NSNumber numberWithFloat:self.center.x], @"center.y":[NSNumber numberWithFloat:self.center.y] } completionBlock:^(NSURL *assetUrl, NSError* error) {
+        [UIView animateWithDuration:0.25 animations:^(void) { self.savedLabel.hidden = NO; self.savedLabel.alpha = 1.0; } completion:^(BOOL finished) {}];
+    }];
+    saveLabelTimer = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(clearSavedText) userInfo:nil repeats:NO];
+}
+
+- (void)clearSavedText
+{
+    [UIView animateWithDuration:0.75 delay:0.0 options:UIViewAnimationCurveEaseInOut animations:^(void) { self.savedLabel.alpha = 0.0; } completion:^(BOOL finished) { self.savedLabel.hidden = YES; }];
 }
 @end
