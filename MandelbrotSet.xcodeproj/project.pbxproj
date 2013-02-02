@@ -300,7 +300,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer: Robert Thompson (369MM22663)";
-				GCC_FAST_MATH = YES;
+				GCC_FAST_MATH = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MandelbrotSet/MandelbrotSet-Prefix.pch";
 				INFOPLIST_FILE = "MandelbrotSet/MandelbrotSet-Info.plist";
@@ -316,7 +316,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer: Robert Thompson (369MM22663)";
-				GCC_FAST_MATH = YES;
+				GCC_FAST_MATH = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MandelbrotSet/MandelbrotSet-Prefix.pch";
 				INFOPLIST_FILE = "MandelbrotSet/MandelbrotSet-Info.plist";

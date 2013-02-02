@@ -21,6 +21,7 @@
 @property (strong, nonatomic) UIViewController* pc;
 @property (weak, nonatomic) IBOutlet UITextField *xCoord;
 @property (weak, nonatomic) IBOutlet UITextField *yCoord;
+@property (weak, nonatomic) IBOutlet UITextField *zoom;
 
 - (IBAction)doOtherThing:(id)sender;
 - (IBAction)sliderValueChanged:(UISlider *)sender;

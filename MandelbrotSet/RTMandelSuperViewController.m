@@ -16,7 +16,7 @@
 @end
 
 @implementation RTMandelSuperViewController
-@synthesize queue, colorTable, currScaleFactor, center;
+@synthesize queue, colorTable, center;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -27,6 +27,7 @@
         self.firstAppearance = YES;
         colorTable = [[RTColorTable alloc] initWithColors:2000];
         self.progressController = [[UIViewController alloc] initWithNibName:@"progressBar" bundle:[NSBundle mainBundle]];
+        [self.progressController.view setBackgroundColor:[UIColor colorWithRed:0.9f green:0.9f blue:1.0f alpha:1.0f]];
     }
     return self;
 }
@@ -35,12 +36,20 @@
 {
     [super viewDidAppear:animated];
     if(self.firstAppearance)//if this is the first time we've seen this view
-    {
-        currScaleFactor = self.retina?200.0f:100.0f; // set the default zoom
-        
+    {        
         self.firstAppearance = NO;
         [self doTheMandelbrot];
     }
+}
+
+- (float)currScaleFactor
+{
+    return _currScaleFactor;
+}
+
+- (void)setCurrScaleFactor:(float)newFactor
+{
+    _currScaleFactor = newFactor * (self.retina?200.0f:100.0f);
 }
 
 - (void)didReceiveMemoryWarning
@@ -53,9 +62,11 @@
 
 - (IBAction)handleGesture:(UITapGestureRecognizer *)sender {
     CGPoint point = [sender locationInView:[self view]];
-    float zoomAmount = 2;
-    if ([sender numberOfTouches] > 1)
-        zoomAmount = 0.5;
+    //float zoomAmount = 2;
+    //if ([sender numberOfTouches] > 1)
+    //    zoomAmount = 0.5;
+    float zoomAmount = 1;//tapping just recenters the plot
+    
     [self redoTheMandelbrot:point zoom:zoomAmount];
 }
 
@@ -79,7 +90,7 @@
     [self.mandelOp setDelegate:self];
     
     [self.mandelOp setCenter:center];
-    [self.mandelOp setCurrScaleFactor:currScaleFactor];
+    [self.mandelOp setCurrScaleFactor:_currScaleFactor];
 
     [queue addOperation:self.mandelOp];
     
@@ -104,11 +115,14 @@
         
         if (gesture.state == UIGestureRecognizerStateEnded)
         {
-            CGPoint point = [gesture locationInView:self.view];
-            float zoomAmount;
-            zoomAmount = newScale;
-            [self redoTheMandelbrot:point zoom:zoomAmount];
-            
+            //CGPoint point = [gesture locationInView:self.view];
+            //float zoomAmount;
+            //zoomAmount = newScale;
+            //[self redoTheMandelbrot:point zoom:zoomAmount];
+            self.view.transform = CGAffineTransformIdentity;
+            _currScaleFactor *= newScale;
+            [self.mandelImage setImage:nil];
+            [self doTheMandelbrot];
         }
     }
 }
@@ -120,7 +134,7 @@
     if (!self.retina)
         screenCenter /= 2.0f;
     
-    return ((float)screenCoord - (float)(screenCenter))/currScaleFactor + (float)(center.x);
+    return ((float)screenCoord - (float)(screenCenter))/_currScaleFactor + (float)(center.x);
 }
 
 - (float)scaleY:(CGFloat)screenCoord
@@ -130,7 +144,7 @@
     if (!self.retina)
         screenCenter /= 2.0f;
     
-    return (0.0f - ((float)screenCoord - (float)(screenCenter)))/currScaleFactor + (float)(center.y);
+    return (0.0f - ((float)screenCoord - (float)(screenCenter)))/_currScaleFactor + (float)(center.y);
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
@@ -154,7 +168,7 @@
     center.x = [self scaleX:point.x];
     center.y = [self scaleY:point.y];
     
-    currScaleFactor *= zoomAmount;
+    _currScaleFactor *= zoomAmount;
     
     [self.mandelImage setImage:nil];
     [self doTheMandelbrot];

@@ -78,6 +78,12 @@ typedef struct
     
     __block int completed = 0;
     int maxIterations = self.maxIterations;
+    
+    void (^updateProgress)(void) =  ^(void){
+        float prog = (float)completed / (float)totalBitmapSize;
+        self.progress.progress = prog;
+    };
+    
     void (^mandelthing)(size_t i) = ^(size_t i)
     {
         void (^innerMandelthing)(size_t j) = ^(size_t j)
@@ -98,10 +104,10 @@ typedef struct
             long double x2 = x * x; // real part of c, squared
             
             // next two lines are for checking the main cardioid
-            long double q = x2 - (0.5f * x) + 0.0625f + y2;
-            long double r = q * (q + (x - 0.25f));
-
-            if ((x2 + x + x + 1.0f + y2 < 0.0625f) || (r < (0.25f * y2))) // inside the period-2 bulb or main carioid
+            long double q = x2 - (0.5l * x) + 0.0625l + y2;
+            //long double r = q * (q + (x - 0.25l));
+            
+            if ((x2 + x + x + 1.0l + y2 < 0.0625l) || (q * (q + (x - 0.25l)) < (0.25l * y2))) // inside the period-2 bulb or main carioid
             {
                 k = maxIterations;
                 z = x + y*I;
@@ -128,15 +134,19 @@ typedef struct
                 // Do the Mandelbrot (/dance)
                 z = (z * z) + (x + y*I);
 
-                zr = creall(z);
-                zi = cimagl(z);
+                //zr = creall(z);
+                //zi = cimagl(z);
+                // God knows why, but the following is *MUCH* faster than using creall(z)
+                long double* zPtr = (long double*)(&z);
+                zr = zPtr[0];
+                zi = zPtr[1];
                 
                 // period checking from wiki
                 long double xDiff = fabsl(zr - hx);
-                if (xDiff < 1e-17f)
+                if (xDiff < 1e-18l)
                 {
                     long double yDiff = fabsl(zi - hy);
-                    if (yDiff < 1e-17f)
+                    if (yDiff < 1e-18l)
                     {
                         k = maxIterations;
                         break;
@@ -170,10 +180,10 @@ typedef struct
             }
             bitsMapped[i][j].z = z;
             completed++;
-            dispatch_async(dispatch_get_main_queue(), ^(void) {
-                long double prog = (long double)completed / (long double)totalBitmapSize;
-                self.progress.progress = prog;
-            });
+            if (completed % 5000 == 0) // only when completed is divisible by twenty
+            {
+                dispatch_async(dispatch_get_main_queue(), updateProgress);
+            }
         };
         dispatch_apply(bounds.size.height, queue, innerMandelthing);
     };
@@ -227,10 +237,10 @@ typedef struct
             pixel.origin.y = j;
             
             completed++;
-            dispatch_async(dispatch_get_main_queue(), ^(void) {
-                long double prog = (long double)completed / (long double)totalBitmapSize;
-                self.progress.progress = prog;
-            });
+            if (completed % 5000 == 0) // only when completed is divisible by five
+            {
+                dispatch_async(dispatch_get_main_queue(), updateProgress);
+            }
 #if !USE_CI
             CGContextFillRect(context, pixel);
 #endif
