@@ -37,9 +37,9 @@
 - (IBAction)doOtherThing:(id)sender {
     RTMandelSuperViewController* supermvc = [[RTMandelSuperViewController alloc] initWithNibName:@"RTMandelSuperViewController" bundle:[NSBundle mainBundle]];
     [supermvc setMaxIterations:(int)[self.iterationsSlider value]]; // set up the iterations
-    [supermvc setCenter:CGPointMake(-1.0f, 0.0f)]; // set up the center
+    [supermvc setCenter:RTPointMake(-1.0f, 0.0f)]; // set up the center
     [supermvc setRetina:retinaSwitch.on];
-    supermvc.center = CGPointMake([[self.xCoord text] floatValue], [[self.yCoord text] floatValue]);
+    supermvc.center = RTPointMake([[self.xCoord text] floatValue], [[self.yCoord text] floatValue]);
     [supermvc setCurrScaleFactor:[[self.zoom text] floatValue]];
     [self.view endEditing:YES];
     

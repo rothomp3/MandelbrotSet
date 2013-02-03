@@ -26,13 +26,14 @@
 @property (strong) NSOperationQueue *queue;
 @property (strong) RTColorTable* colorTable;
 @property BOOL firstAppearance;
-@property CGPoint center;
+@property RTPoint center;
 @property (weak, nonatomic) IBOutlet UILabel *savedLabel;
 
 - (void)dismissProgress;
 - (void)doTheMandelbrot;
-- (float)scaleX:(CGFloat)screenCoord;
-- (float)scaleY:(CGFloat)screenCoord;
+
+- (long double)scaleX:(CGFloat)screenCoord;
+- (long double)scaleY:(CGFloat)screenCoord;
 
 - (IBAction)handlePinch:(UIGestureRecognizer*)gr;
 - (void)redoTheMandelbrot:(CGPoint)point zoom:(float)zoomAmount;

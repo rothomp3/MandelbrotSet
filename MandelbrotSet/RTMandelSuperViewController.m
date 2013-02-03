@@ -133,24 +133,24 @@
     }
 }
 
-- (float)scaleX:(CGFloat)screenCoord
+- (long double)scaleX:(CGFloat)screenCoord
 {
-    CGFloat screenCenter = self.view.bounds.size.width;
+    long double screenCenter = self.view.bounds.size.width;
     
     if (!self.retina)
         screenCenter /= 2.0f;
     
-    return ((float)screenCoord - (float)(screenCenter))/_currScaleFactor + (float)(center.x);
+    return ((long double)screenCoord - screenCenter)/(long double)_currScaleFactor + (long double)(center.x);
 }
 
-- (float)scaleY:(CGFloat)screenCoord
+- (long double)scaleY:(CGFloat)screenCoord
 {
-    CGFloat screenCenter = self.view.bounds.size.height;
+    long double screenCenter = self.view.bounds.size.height;
 
     if (!self.retina)
         screenCenter /= 2.0f;
     
-    return (0.0f - ((float)screenCoord - (float)(screenCenter)))/_currScaleFactor + (float)(center.y);
+    return (0.0l - ((long double)screenCoord - screenCenter))/(long double)_currScaleFactor + center.y;
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
