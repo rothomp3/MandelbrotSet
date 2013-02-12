@@ -14,8 +14,14 @@
 		<dict>
 			<key>CFBundleIconFiles</key>
 			<array>
-				<string>retinaAppIconMandel.png</string>
-				<string>non-retinaAppIconMandel.png</string>
+				<string>iphoneicon@2x.png</string>
+				<string>iphoneIcon.png</string>
+				<string>ipadicon.png</string>
+				<string>ipadicon@2x.png</string>
+				<string>ipadspotlighticon.png</string>
+				<string>ipadspotlighticon@2x.png</string>
+				<string>iphonespotlighticon.png</string>
+				<string>iphonespotlighticon@2x.png</string>
 			</array>
 		</dict>
 	</dict>
@@ -42,6 +48,12 @@
 	<key>UIStatusBarHidden</key>
 	<true/>
 	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
