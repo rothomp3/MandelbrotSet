@@ -10,6 +10,7 @@
 #import "RTMandelbrotOperation.h"
 
 @class RTColorTable;
+@class RTSettingsViewController;
 
 @interface RTMandelSuperViewController : UIViewController <UIGestureRecognizerDelegate, RTMandelbrotOperationDelegate>
 {
@@ -29,6 +30,8 @@
 @property RTPoint center;
 @property (weak, nonatomic) IBOutlet UILabel *savedLabel;
 
+@property (strong, nonatomic) RTSettingsViewController* svc;
+
 - (void)dismissProgress;
 - (void)doTheMandelbrot;
 
@@ -42,4 +45,6 @@
 
 - (void)setCurrScaleFactor:(float)newFactor;
 - (float)currScaleFactor;
+
+- (IBAction)settings:(id)sender;
 @end

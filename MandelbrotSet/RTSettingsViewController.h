@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-@class RTViewController;
+@class RTMandelSuperViewController;
 @interface RTSettingsViewController : UIViewController <UIPopoverControllerDelegate>
 {
     __weak IBOutlet UISwitch *retinaSwitch;
@@ -16,12 +16,15 @@
 }
 @property (weak, nonatomic) IBOutlet UILabel *sliderLabel;
 @property (weak, nonatomic) IBOutlet UISlider *iterationsSlider;
-@property (nonatomic) int numIterations;
-@property (strong, nonatomic) RTViewController* mvc;
-@property (strong, nonatomic) UIViewController* pc;
 @property (weak, nonatomic) IBOutlet UITextField *xCoord;
 @property (weak, nonatomic) IBOutlet UITextField *yCoord;
 @property (weak, nonatomic) IBOutlet UITextField *zoom;
+@property (weak, nonatomic) RTMandelSuperViewController* supermvc;
+// Properties for setting up the mandelbrot
+@property (nonatomic) int numIterations;
+@property (nonatomic) long double x;
+@property (nonatomic) long double y;
+@property (nonatomic) float zoomValue;
 
 - (IBAction)doOtherThing:(id)sender;
 - (IBAction)sliderValueChanged:(UISlider *)sender;

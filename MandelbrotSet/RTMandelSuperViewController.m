@@ -12,6 +12,7 @@
 #import "RTColorTable.h"
 #import "AssetsLibrary/AssetsLibrary.h"
 #import "UIKit/UIView.h"
+#import "RTSettingsViewController.h"
 
 @interface RTMandelSuperViewController ()
 
@@ -31,8 +32,20 @@
         self.progressController = [[UIViewController alloc] initWithNibName:@"progressBar" bundle:[NSBundle mainBundle]];
         [self.progressController.view setBackgroundColor:[UIColor colorWithRed:0.9f green:0.9f blue:1.0f alpha:1.0f]];
         
-        UIBarButtonItem* editItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(save:)];
-        [self.navigationItem setRightBarButtonItem:editItem];
+        UIBarButtonItem* saveItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(save:)];
+        [self.navigationItem setRightBarButtonItem:saveItem];
+        
+        UIBarButtonItem* settingsItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(settings:)];
+        [self.navigationItem setLeftBarButtonItem:settingsItem];
+        
+        // Set up some intelligent defaults
+        self.maxIterations = 300;
+        self.currScaleFactor = 1.0;
+        self.center = RTPointMake(-1.0l, 0.0l);
+        
+        // Create the settings view controller
+        self.svc = [[RTSettingsViewController alloc] initWithNibName:@"RTSettingsViewController" bundle:[NSBundle mainBundle]];
+        self.svc.supermvc = self;
     }
     return self;
 }
@@ -43,11 +56,29 @@
     if(self.firstAppearance)//if this is the first time we've seen this view
     {        
         self.firstAppearance = NO;
-        [self doTheMandelbrot];
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        {
+            if(UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation))
+                self.mandelImage.image = [UIImage imageNamed:@"startermandel-ipad-landscape.JPG"];
+            else
+                self.mandelImage.image = [UIImage imageNamed:@"startermandel-ipad.JPG"];
+        }
+        else if (self.view.bounds.size.height > 480)// if we're on a big iPhone
+            self.mandelImage.image = [UIImage imageNamed:@"startermandel-568h.jpg"];
+        else
+            self.mandelImage.image = [UIImage imageNamed:@"startermandel.jpg"];
+        
+        self.iterationsLabel.text = @"300 Iterations";
+        self.zoomLabel.text = @"1.0x";
     }
 }
 
 - (float)currScaleFactor
+{
+    return _currScaleFactor / (self.retina?200.0f:100.0f);
+}
+
+- (float)realScaleFactor
 {
     return _currScaleFactor;
 }
@@ -163,7 +194,7 @@
     self.view.transform = CGAffineTransformIdentity; // set the view back to normal before drawing again
     
     //translate the y coordinate to CGContextland
-    point.y = (point.y - self.view.bounds.size.height) * -1.0f;
+    //point.y = (point.y - self.view.bounds.size.height) * -1.0f;
     
     if (self.retina)
     {
@@ -193,5 +224,14 @@
 - (void)clearSavedText
 {
     [UIView animateWithDuration:0.75 delay:0.0 options:UIViewAnimationCurveEaseInOut animations:^(void) { self.savedLabel.alpha = 0.0; } completion:^(BOOL finished) { self.savedLabel.hidden = YES; }];
+}
+
+- (IBAction)settings:(id)sender
+{
+    self.svc.zoomValue = [self currScaleFactor];
+    self.svc.x = self.center.x;
+    self.svc.y = self.center.y;
+    self.svc.numIterations = self.maxIterations;
+    [[self navigationController] pushViewController:self.svc animated:YES];
 }
 @end

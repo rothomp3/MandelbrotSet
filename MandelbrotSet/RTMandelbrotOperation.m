@@ -10,7 +10,6 @@
 #include <complex.h>
 #import "RTColorTable.h"
 
-#define USE_CI 0
 void printBits(unsigned int num)
 {
     for(int bit=0;bit<(sizeof(unsigned int) * 8); bit++)
@@ -19,12 +18,6 @@ void printBits(unsigned int num)
         num = num >> 1;
     }
 }
-
-typedef struct
-{
-    int numIterations;
-    long double complex z;
-} pointInfo;
 
 @implementation RTMandelbrotOperation
 @synthesize bounds, currScaleFactor, center, screenCenter;
@@ -61,20 +54,19 @@ typedef struct
 {
     size_t bitmapBytesPerRow = bounds.size.width * 4;
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGContextRef context = CGBitmapContextCreate(NULL, bounds.size.width, bounds.size.height, 8, bitmapBytesPerRow, colorSpace, kCGImageAlphaPremultipliedLast);
+
     
     screenCenter.x = bounds.size.width / 2.0f;
     screenCenter.y = bounds.size.height / 2.0f;
     
-    CGRect pixel = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
     long double iterationMagnitude = log10l(self.maxIterations) * 6.43f;
     
     size_t totalBitmapSize = bounds.size.width * bounds.size.height;
-    pointInfo* data = malloc(sizeof(pointInfo) * totalBitmapSize);
-    pointInfo** bitsMapped = malloc(sizeof(pointInfo*) * bounds.size.width);
     
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_apply(bounds.size.width, queue, ^(size_t j) { bitsMapped[j] = data + (j * (int)bounds.size.height); });
+    
+    uint8_t* bitmapPtr = malloc(sizeof(uint8_t) * totalBitmapSize * 4);
+    CGContextRef context = CGBitmapContextCreate(bitmapPtr, bounds.size.width, bounds.size.height, 8, bitmapBytesPerRow, colorSpace, kCGImageAlphaPremultipliedLast);
     
     __block int completed = 0;
     int maxIterations = self.maxIterations;
@@ -118,15 +110,15 @@ typedef struct
             int checkCounter = 0;
             int update = 10;
             int updateCounter = 0;
-            long double hx = 0.0f;
-            long double hy = 0.0f;
-            
-            long double zr = 0.0f;
-            long double zi = 0.0f;
+            long double hx = 0.0l;
+            long double hy = 0.0l;
+        
+            long double zr = 0.0l;
+            long double zi = 0.0l;
             while ((k < maxIterations))
             {
                 // Check for bailout at radius 2
-                if (zr*zr + zi*zi >= 4.0f)
+                if (zr*zr + zi*zi >= 4.0l)
                 {
                     break;
                 }
@@ -170,15 +162,28 @@ typedef struct
                 checkCounter++;
                 k++;
             }
-            if (k == maxIterations) //it didn't escape
+    
+            int pixelNumber = (i * 4) + (int)(j * bitmapBytesPerRow);
+            if (k == maxIterations)
             {
-                bitsMapped[i][j].numIterations = -1;
+                bitmapPtr[pixelNumber + 3] = 255;
+                bitmapPtr[pixelNumber + 2] = 0;
+                bitmapPtr[pixelNumber + 1] = 0;
+                bitmapPtr[pixelNumber + 0] = 0;
             }
             else
             {
-                bitsMapped[i][j].numIterations = k;
+                long double vz = k - log2l(log2l(cabsl(z)));
+                vz = vz * iterationMagnitude;
+                int colorNumber = ((int)vz % (self.colorTable.count));
+                UIColor* color = self.colorTable[colorNumber];
+                CGFloat red, green, blue, alpha;
+                [color getRed:&red green:&green blue:&blue alpha:&alpha];
+                bitmapPtr[pixelNumber + 3] = (uint8_t)ceilf(alpha * 255.0f);
+                bitmapPtr[pixelNumber + 2] = (uint8_t)ceilf(blue * 255.0f);
+                bitmapPtr[pixelNumber + 1] = (uint8_t)ceilf(green * 255.0f);
+                bitmapPtr[pixelNumber + 0] = (uint8_t)ceilf(red * 255.0f);
             }
-            bitsMapped[i][j].z = z;
             completed++;
             if (completed % 5000 == 0) // only when completed is divisible by twenty
             {
@@ -187,88 +192,18 @@ typedef struct
         };
         dispatch_apply(bounds.size.height, queue, innerMandelthing);
     };
-    dispatch_async(dispatch_get_main_queue(), ^(void) { [self.progressLabel setText:@"Calculating escapes…"]; });
+    
+    dispatch_async(dispatch_get_main_queue(), ^(void) { [self.progressLabel setText:@"Calculating and drawing…"]; });
     dispatch_apply(bounds.size.width, queue, mandelthing);
-    
-#if USE_CI
-    int width = bounds.size.width;
-    int height = bounds.size.height;
-    uint32_t* bitmapDataData = malloc(sizeof(uint32_t) * width * height);
-    uint32_t** bitmapData = malloc(sizeof(uint32_t*) * width);
-    for (int a = 0; a < width; a++)
-    {
-        bitmapData[a] = bitmapDataData + (a * height);
-    }
-#endif
-    pointInfo point;
-    completed = 0;
-    dispatch_sync(dispatch_get_main_queue(), ^(void) { [self.progressLabel setText:@"Drawing bitmap…"]; });
-    for (int i = 0; i < bounds.size.width; i++)
-    {
-        for (int j = 0; j < bounds.size.height; j++)
-        {
-            point = bitsMapped[i][j];
-            if (point.numIterations == -1)
-            {
-                CGContextSetRGBFillColor(context, 0.0f, 0.0f, 0.0f, 1.0f);
-            }
-            else
-            {
-                long double vz = point.numIterations - log2f(log2f(cabs(point.z)));
-                vz = vz * iterationMagnitude;
-                int colorNumber = ((int)(truncf(vz)) % (self.colorTable.count));
-#if USE_CI
-                CGlong double color[4];
-                [self.colorTable[colorNumber] getRed:&color[0] green:&color[1] blue:&color[2] alpha:&color[3]];
-                for (int m = 0; m < 4; m++)
-                {
-                    uint8_t* pixelPtr = (uint8_t*)(&(bitmapData[i][j]));
-                    pixelPtr[2] = (uint8_t)(ceilf(color[0] * 255.0f));
-                    pixelPtr[1] = (uint8_t)(ceilf(color[1] * 255.0f));
-                    pixelPtr[0] = (uint8_t)(ceilf(color[2] * 255.0f));
-                    pixelPtr[3] = 255;
-                }
-#else
-                CGContextSetFillColorWithColor(context, [self.colorTable[colorNumber] CGColor]);
-                //CGContextSetRGBFillColor(context, 0.01f * (long double)i, 0.0f, 0.0f, 1.0f);
-#endif
-            }
-            pixel.origin.x = i;
-            pixel.origin.y = j;
-            
-            completed++;
-            if (completed % 5000 == 0) // only when completed is divisible by five
-            {
-                dispatch_async(dispatch_get_main_queue(), updateProgress);
-            }
-#if !USE_CI
-            CGContextFillRect(context, pixel);
-#endif
-        }
-    }
-#if USE_CI
-    NSData* bitmap = [NSData dataWithBytes:bitmapDataData length:(width * height)];
-    //CIContext* ctx = [CIContext contextWithOptions:@{kCIContextUseSoftwareRenderer:@NO}];
-    
-    CIImage *theImage = [CIImage imageWithBitmapData:bitmap bytesPerRow:bitmapBytesPerRow size:CGSizeMake(width, height) format:kCIFormatARGB8 colorSpace:colorSpace];
-    
-
-    //UIImage *theUIImage = [[UIImage alloc] initWithBitma];
-    [self setResult:[UIImage imageWithCIImage:theImage]];
-    //[self setResult:theUIImage];
-    free(bitmapDataData);
-    free(bitmapData);
-
-#else
+   
     CGImageRef image = CGBitmapContextCreateImage(context);
     [self setResult:[UIImage imageWithCGImage:image]];
     CGImageRelease(image);
-#endif
-    free(data);
-    free(bitsMapped);
+    
     CGColorSpaceRelease(colorSpace);
     CGContextRelease(context);
     dispatch_sync(dispatch_get_main_queue(), ^(void) { [self.delegate dismissProgress]; });
+    free(bitmapPtr);
 }
 
 - (long double)scaleX:(CGFloat)screenCoord
@@ -281,3 +216,11 @@ typedef struct
     return (0.0f - ((long double)screenCoord - (long double)(screenCenter.y)))/currScaleFactor + (long double)(center.y);
 }
 @end
+
+RTPoint RTPointMake(long double x, long double y)
+{
+    RTPoint point;
+    point.x = x;
+    point.y = y;
+    return point;
+}

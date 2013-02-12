@@ -7,7 +7,8 @@
 //
 
 #import "RTAppDelegate.h"
-#import "RTSettingsViewController.h"
+//#import "RTSettingsViewController.h"
+#import "RTMandelSuperViewController.h"
 
 @implementation RTAppDelegate
 
@@ -17,8 +18,9 @@
     // Override point for customization after application launch.
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
     
-    RTSettingsViewController* svc = [[RTSettingsViewController alloc] init];
-    UINavigationController *navControl = [[UINavigationController alloc] initWithRootViewController:svc];
+    //RTSettingsViewController* svc = [[RTSettingsViewController alloc] init];
+    RTMandelSuperViewController* msvc = [[RTMandelSuperViewController alloc] initWithNibName:@"RTMandelSuperViewController" bundle:[NSBundle mainBundle]];
+    UINavigationController *navControl = [[UINavigationController alloc] initWithRootViewController:msvc];
     //[[self window] setRootViewController:mvc];
     [[self window] setRootViewController:navControl];
     self.window.backgroundColor = [UIColor blackColor];

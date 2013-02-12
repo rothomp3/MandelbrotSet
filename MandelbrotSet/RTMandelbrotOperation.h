@@ -37,10 +37,4 @@ typedef struct _RTPoint
 - (long double)scaleY:(CGFloat)screenCoord;
 @end
 
-inline RTPoint RTPointMake(long double x, long double y)
-{
-    RTPoint point;
-    point.x = x;
-    point.y = y;
-    return point;
-}
+inline RTPoint RTPointMake(long double x, long double y);
