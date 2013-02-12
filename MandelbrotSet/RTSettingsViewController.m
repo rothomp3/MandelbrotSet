@@ -17,6 +17,7 @@
 {
     [super viewDidLoad];
     [[self view] setBackgroundColor:[UIColor colorWithRed:0.9f green:0.9f blue:1.0f alpha:1.0f]];
+    /*
     UIView* inputAccessoryView = nil;
     if (!inputAccessoryView) {
         CGRect accessFrame = CGRectMake(0.0, 0.0, 320.0, 46.0);
@@ -31,6 +32,7 @@
         [inputAccessoryView addSubview:compButton];
     }
     self.zoom.inputAccessoryView = inputAccessoryView;
+     */
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -93,7 +95,11 @@
     [[self sliderLabel] setText:[NSString stringWithFormat:@"%d", (int)[self.iterationsSlider value]]];
 }
 
-#define kOFFSET_FOR_KEYBOARD 80.0
+- (IBAction)dismissKeyboard:(UIView *)sender {
+    [self.view endEditing:YES];
+}
+
+#define kOFFSET_FOR_KEYBOARD 100.0
 
 -(void)keyboardWillShow {
     // Animate the current view out of the way

@@ -28,5 +28,6 @@
 
 - (IBAction)doOtherThing:(id)sender;
 - (IBAction)sliderValueChanged:(UISlider *)sender;
+- (IBAction)dismissKeyboard:(UIView *)sender;
 
 @end
