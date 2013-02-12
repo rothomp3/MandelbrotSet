@@ -23,6 +23,8 @@
 @property (strong, atomic) RTMandelbrotOperation* mandelOp;
 @property (nonatomic) int maxIterations;
 @property (strong, nonatomic) UIViewController* progressController;
+@property (strong, nonatomic) IBOutlet UIProgressView *progressView;
+@property (strong, nonatomic) IBOutlet UILabel* progressLabel;
 @property (nonatomic) BOOL retina;
 @property (strong) NSOperationQueue *queue;
 @property (strong) RTColorTable* colorTable;

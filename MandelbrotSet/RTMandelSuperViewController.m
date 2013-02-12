@@ -29,8 +29,20 @@
         queue = [[NSOperationQueue alloc] init];
         self.firstAppearance = YES;
         colorTable = [[RTColorTable alloc] initWithColors:2000];
-        self.progressController = [[UIViewController alloc] initWithNibName:@"progressBar" bundle:[NSBundle mainBundle]];
-        [self.progressController.view setBackgroundColor:[UIColor colorWithRed:0.9f green:0.9f blue:1.0f alpha:1.0f]];
+        
+        //self.progressController = [[UIViewController alloc] initWithNibName:@"progressBar" bundle:[NSBundle mainBundle]];
+        //[self.progressController.view setBackgroundColor:[UIColor colorWithRed:0.9f green:0.9f blue:1.0f alpha:1.0f]];
+
+        self.progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
+        self.progressView.hidden = YES;
+        self.progressView.progress = 0.0f;
+        
+        self.progressLabel = [[UILabel alloc] init];
+        self.progressLabel.hidden = YES;
+        self.progressLabel.text = @"";
+        
+        [self.view addSubview:self.progressView];
+        [self.view addSubview:self.progressLabel];
         
         UIBarButtonItem* saveItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(save:)];
         [self.navigationItem setRightBarButtonItem:saveItem];
@@ -99,9 +111,6 @@
 
 - (IBAction)handleGesture:(UITapGestureRecognizer *)sender {
     CGPoint point = [sender locationInView:[self view]];
-    //float zoomAmount = 2;
-    //if ([sender numberOfTouches] > 1)
-    //    zoomAmount = 0.5;
     float zoomAmount = 1;//tapping just recenters the plot
     
     [self redoTheMandelbrot:point zoom:zoomAmount];
@@ -110,7 +119,8 @@
 - (void)dismissProgress
 {
     [self.mandelImage setImage:self.mandelOp.result];
-    [[self navigationController] popViewControllerAnimated:NO];
+    self.progressView.hidden = YES;
+    self.progressLabel.hidden = YES;
 }
 
 - (void)doTheMandelbrot
@@ -122,8 +132,8 @@
     self.mandelOp = [[RTMandelbrotOperation alloc] initWithBounds:mandelBounds retina:self.retina];
     [self.mandelOp setMaxIterations:[self maxIterations]];
     [self.mandelOp setColorTable:[colorTable colors]];
-    [self.mandelOp setProgress:(UIProgressView*)[self.progressController.view viewWithTag:314]];
-    [self.mandelOp setProgressLabel:(UILabel*)[self.progressController.view viewWithTag:10]];
+    [self.mandelOp setProgress:self.progressView];
+    [self.mandelOp setProgressLabel:self.progressLabel];
     [self.mandelOp setDelegate:self];
     
     [self.mandelOp setCenter:center];
@@ -134,7 +144,12 @@
     [self.iterationsLabel setText:[NSString stringWithFormat:@"%d iterations", self.maxIterations]];
     [self.zoomLabel setText:[NSString stringWithFormat:@"Zoom: %.1fx", self.mandelOp.currScaleFactor / (self.retina?200.0f:100.0f)]];
     
-    [[self navigationController] pushViewController:self.progressController animated:NO] ;
+    // Set up the progress bar display
+    self.progressLabel.center = CGPointMake(self.view.center.x, self.view.center.y + 10.0f);
+    self.progressView.frame = CGRectMake(0.0f, 0.0f, self.view.bounds.size.width - 40.0f, self.progressView.bounds.size.height);
+    self.progressView.center = self.view.center;
+    self.progressView.hidden = NO;
+    self.progressLabel.hidden = NO;
 }
 
 - (IBAction)handlePinch:(UIPinchGestureRecognizer *)gesture
@@ -152,10 +167,6 @@
         
         if (gesture.state == UIGestureRecognizerStateEnded)
         {
-            //CGPoint point = [gesture locationInView:self.view];
-            //float zoomAmount;
-            //zoomAmount = newScale;
-            //[self redoTheMandelbrot:point zoom:zoomAmount];
             self.view.transform = CGAffineTransformIdentity;
             _currScaleFactor *= newScale;
             [self.mandelImage setImage:nil];
@@ -186,15 +197,13 @@
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
+    self.mandelImage.image = nil;
     [self doTheMandelbrot];
 }
 
 - (void)redoTheMandelbrot:(CGPoint)point zoom:(float)zoomAmount
 {
     self.view.transform = CGAffineTransformIdentity; // set the view back to normal before drawing again
-    
-    //translate the y coordinate to CGContextland
-    //point.y = (point.y - self.view.bounds.size.height) * -1.0f;
     
     if (self.retina)
     {

@@ -10,6 +10,7 @@
 #import "RTMandelbrotOperation.h"
 #import "RTColorTable.h"
 #import "RTMandelSuperViewController.h"
+#import "UIKit/UIView.h"
 
 @implementation RTSettingsViewController
 @synthesize supermvc;
@@ -17,22 +18,6 @@
 {
     [super viewDidLoad];
     [[self view] setBackgroundColor:[UIColor colorWithRed:0.9f green:0.9f blue:1.0f alpha:1.0f]];
-    /*
-    UIView* inputAccessoryView = nil;
-    if (!inputAccessoryView) {
-        CGRect accessFrame = CGRectMake(0.0, 0.0, 320.0, 46.0);
-        inputAccessoryView = [[UIView alloc] initWithFrame:accessFrame];
-        inputAccessoryView.backgroundColor = self.view.backgroundColor;
-        UIButton *compButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        compButton.frame = CGRectMake(60.0f,1.0f,60.0f, 44);
-        [compButton setTitle: @"Done" forState:UIControlStateNormal];
-        [compButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [compButton addTarget:self.view action:@selector(endEditing:)
-             forControlEvents:UIControlEventTouchUpInside];
-        [inputAccessoryView addSubview:compButton];
-    }
-    self.zoom.inputAccessoryView = inputAccessoryView;
-     */
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -139,26 +124,23 @@
 //method to move the view up/down whenever the keyboard is shown/dismissed
 -(void)setViewMovedUp:(BOOL)movedUp
 {
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:0.3]; // if you want to slide up the view
-    
-    CGRect rect = self.view.frame;
-    if (movedUp)
-    {
-        // 1. move the view's origin up so that the text field that will be hidden come above the keyboard
-        // 2. increase the size of the view so that the area behind the keyboard is covered up.
-        rect.origin.y -= kOFFSET_FOR_KEYBOARD;
-        rect.size.height += kOFFSET_FOR_KEYBOARD;
-    }
-    else
-    {
-        // revert back to the normal state.
-        rect.origin.y += kOFFSET_FOR_KEYBOARD;
-        rect.size.height -= kOFFSET_FOR_KEYBOARD;
-    }
-    self.view.frame = rect;
-    
-    [UIView commitAnimations];
+    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationCurveEaseInOut animations:^(void) { 
+        CGRect rect = self.view.frame;
+        if (movedUp)
+        {
+            // 1. move the view's origin up so that the text field that will be hidden come above the keyboard
+            // 2. increase the size of the view so that the area behind the keyboard is covered up.
+            rect.origin.y -= kOFFSET_FOR_KEYBOARD;
+            rect.size.height += kOFFSET_FOR_KEYBOARD;
+        }
+        else
+        {
+            // revert back to the normal state.
+            rect.origin.y += kOFFSET_FOR_KEYBOARD;
+            rect.size.height -= kOFFSET_FOR_KEYBOARD;
+        }
+        self.view.frame = rect;
+    } completion:nil];
 }
 
 @end
