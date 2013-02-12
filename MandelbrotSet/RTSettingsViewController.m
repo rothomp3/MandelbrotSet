@@ -33,6 +33,7 @@
                                              selector:@selector(keyboardWillHide)
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
+    self.navigationItem.title = @"Settings";
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -47,6 +48,7 @@
     [self.xCoord setText:[NSString stringWithFormat:@"%.2Lf",self.x]];
     [self.yCoord setText:[NSString stringWithFormat:@"%.2Lf",self.y]];
     [self.zoom setText:[NSString stringWithFormat:@"%.3f", self.zoomValue]];
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated

@@ -44,8 +44,12 @@
         UIBarButtonItem* saveItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(save:)];
         [self.navigationItem setRightBarButtonItem:saveItem];
         
-        UIBarButtonItem* settingsItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(settings:)];
+        UIBarButtonItem* settingsItem = [[UIBarButtonItem alloc] initWithTitle:@"⚙" style:UIBarButtonItemStylePlain target:self action:@selector(settings:)];
+        UIFont* font = [UIFont systemFontOfSize:24.0f];
+        [settingsItem setTitleTextAttributes:@{UITextAttributeFont:font} forState:UIControlStateNormal];
         [self.navigationItem setLeftBarButtonItem:settingsItem];
+        
+        self.navigationItem.title = @"MandelbrotSet";
         
         // Set up some intelligent defaults
         self.maxIterations = 300;
@@ -116,6 +120,8 @@
     [self.mandelImage setImage:self.mandelOp.result];
     self.progressView.hidden = YES;
     self.progressLabel.hidden = YES;
+    [self.navigationItem.leftBarButtonItem setEnabled:YES];
+    [self.navigationItem.rightBarButtonItem setEnabled:YES];
 }
 
 - (void)doTheMandelbrot
@@ -141,9 +147,14 @@
     [self.zoomLabel setText:[NSString stringWithFormat:@"Zoom: %.1fx", self.mandelOp.currScaleFactor / (self.retina?200.0f:100.0f)]];
     
     // Set up the progress bar display
+    //[self.navigationController setNavigationBarHidden:YES animated:NO];
+    [self.navigationItem.leftBarButtonItem setEnabled:NO];
+    [self.navigationItem.rightBarButtonItem setEnabled:NO];
+    
     self.progressLabel.center = CGPointMake(self.view.center.x, self.view.center.y + 10.0f);
     self.progressView.frame = CGRectMake(0.0f, 0.0f, self.view.bounds.size.width - 40.0f, self.progressView.bounds.size.height);
     self.progressView.center = self.view.center;
+    self.progressView.progress = 0.0f;
     self.progressView.hidden = NO;
     self.progressLabel.hidden = NO;
 }

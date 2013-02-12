@@ -200,7 +200,7 @@ void printBits(unsigned int num)
     };
     
     dispatch_async(dispatch_get_main_queue(), ^(void) { [self.progressLabel setText:@"Calculating and drawing…"]; [self.progressLabel sizeToFit];
-        self.progressLabel.center = CGPointMake(self.progress.center.x, 0.0f - self.progressLabel.bounds.size.height - 5.0f + self.progress.center.y);});
+        self.progressLabel.center = CGPointMake(self.progress.center.x, self.progress.center.y - self.progressLabel.bounds.size.height - 5.0f);});
     dispatch_apply(bounds.size.width, queue, mandelthing);
    
     CGImageRef image = CGBitmapContextCreateImage(context);
