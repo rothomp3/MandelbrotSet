@@ -29,9 +29,6 @@
         queue = [[NSOperationQueue alloc] init];
         self.firstAppearance = YES;
         colorTable = [[RTColorTable alloc] initWithColors:2000];
-        
-        //self.progressController = [[UIViewController alloc] initWithNibName:@"progressBar" bundle:[NSBundle mainBundle]];
-        //[self.progressController.view setBackgroundColor:[UIColor colorWithRed:0.9f green:0.9f blue:1.0f alpha:1.0f]];
 
         self.progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
         self.progressView.hidden = YES;
@@ -54,10 +51,6 @@
         self.maxIterations = 300;
         self.currScaleFactor = 1.0;
         self.center = RTPointMake(-1.0l, 0.0l);
-        
-        // Create the settings view controller
-        self.svc = [[RTSettingsViewController alloc] initWithNibName:@"RTSettingsViewController" bundle:[NSBundle mainBundle]];
-        self.svc.supermvc = self;
     }
     return self;
 }
@@ -83,6 +76,8 @@
         self.iterationsLabel.text = @"300 Iterations";
         self.zoomLabel.text = @"1.0x";
     }
+    else if (self.mandelImage.image == nil) // should only happen after a low memory warning
+        [self doTheMandelbrot];
 }
 
 - (float)currScaleFactor
@@ -104,9 +99,9 @@
 {
     [super didReceiveMemoryWarning];
     self.mandelOp = nil;
-    self.colorTable = nil;
-    self.progressController = nil;
     saveLabelTimer = nil;
+    self.mandelImage.image = nil;
+    self.svc = nil;
 }
 
 - (IBAction)handleGesture:(UITapGestureRecognizer *)sender {
@@ -125,8 +120,9 @@
 
 - (void)doTheMandelbrot
 {
+    if (self.mandelImage.image != nil)
+        [self.mandelImage setImage:nil];
     self.mandelOp = nil; // make sure the old one, if it exists, gets freed
-    
     CGRect mandelBounds = self.view.bounds;
     
     self.mandelOp = [[RTMandelbrotOperation alloc] initWithBounds:mandelBounds retina:self.retina];
@@ -216,7 +212,7 @@
     
     _currScaleFactor *= zoomAmount;
     
-    [self.mandelImage setImage:nil];
+    //[self.mandelImage setImage:nil];
     [self doTheMandelbrot];
 }
 
@@ -237,6 +233,12 @@
 
 - (IBAction)settings:(id)sender
 {
+    if (self.svc == nil)
+    {
+        // Create the settings view controller
+        self.svc = [[RTSettingsViewController alloc] initWithNibName:@"RTSettingsViewController" bundle:[NSBundle mainBundle]];
+    }
+    self.svc.supermvc = self;
     self.svc.zoomValue = [self currScaleFactor];
     self.svc.x = self.center.x;
     self.svc.y = self.center.y;

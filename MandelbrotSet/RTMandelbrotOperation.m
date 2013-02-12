@@ -76,6 +76,12 @@ void printBits(unsigned int num)
         self.progress.progress = prog;
     };
     
+    // set up the color table for fast access
+    NSRange colorRange = NSMakeRange(0, self.colorTable.count);
+    UIColor* __unsafe_unretained * colorTable = (UIColor * __unsafe_unretained *)malloc(sizeof(id *) * colorRange.length);
+    [self.colorTable getObjects:colorTable range:colorRange];
+    int numColors = self.colorTable.count;
+    
     void (^mandelthing)(size_t i) = ^(size_t i)
     {
         void (^innerMandelthing)(size_t j) = ^(size_t j)
@@ -175,11 +181,11 @@ void printBits(unsigned int num)
             {
                 long double vz = k - log2l(log2l(cabsl(z)));
                 vz = vz * iterationMagnitude;
-                int colorNumber = ((int)vz % (self.colorTable.count));
-                UIColor* color = self.colorTable[colorNumber];
+                int colorNumber = ((int)vz % numColors);
+                UIColor* color = colorTable[colorNumber];
                 CGFloat red, green, blue, alpha;
                 [color getRed:&red green:&green blue:&blue alpha:&alpha];
-                bitmapPtr[pixelNumber + 3] = (uint8_t)ceilf(alpha * 255.0f);
+                bitmapPtr[pixelNumber + 3] = (uint8_t)255; //(uint8_t)ceilf(alpha * 255.0f);
                 bitmapPtr[pixelNumber + 2] = (uint8_t)ceilf(blue * 255.0f);
                 bitmapPtr[pixelNumber + 1] = (uint8_t)ceilf(green * 255.0f);
                 bitmapPtr[pixelNumber + 0] = (uint8_t)ceilf(red * 255.0f);
@@ -205,6 +211,7 @@ void printBits(unsigned int num)
     CGContextRelease(context);
     dispatch_sync(dispatch_get_main_queue(), ^(void) { [self.delegate dismissProgress]; });
     free(bitmapPtr);
+    free(colorTable);
 }
 
 - (long double)scaleX:(CGFloat)screenCoord

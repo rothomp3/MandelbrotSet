@@ -22,7 +22,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *mandelImage;
 @property (strong, atomic) RTMandelbrotOperation* mandelOp;
 @property (nonatomic) int maxIterations;
-@property (strong, nonatomic) UIViewController* progressController;
 @property (strong, nonatomic) IBOutlet UIProgressView *progressView;
 @property (strong, nonatomic) IBOutlet UILabel* progressLabel;
 @property (nonatomic) BOOL retina;

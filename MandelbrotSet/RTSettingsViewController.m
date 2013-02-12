@@ -49,19 +49,6 @@
     [self.zoom setText:[NSString stringWithFormat:@"%.3f", self.zoomValue]];
 }
 
-- (IBAction)doOtherThing:(id)sender {
-    [supermvc setMaxIterations:(int)[self.iterationsSlider value]]; // set up the iterations
-    [supermvc setCenter:RTPointMake(-1.0f, 0.0f)]; // set up the center
-    [supermvc setRetina:retinaSwitch.on];
-    supermvc.center = RTPointMake([[self.xCoord text] doubleValue], [[self.yCoord text] doubleValue]);
-    [supermvc setCurrScaleFactor:[[self.zoom text] floatValue]];
-    [self.view endEditing:YES];
-    
-    //[[self navigationController] pushViewController:supermvc animated:YES];
-    [self.navigationController popViewControllerAnimated:NO];
-    [self.supermvc doTheMandelbrot];
-}
-
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
@@ -78,10 +65,21 @@
 
 - (IBAction)sliderValueChanged:(UISlider *)sender {
     [[self sliderLabel] setText:[NSString stringWithFormat:@"%d", (int)[self.iterationsSlider value]]];
+    [self valuesChanged:sender];
 }
 
 - (IBAction)dismissKeyboard:(UIView *)sender {
     [self.view endEditing:YES];
+}
+
+- (IBAction)valuesChanged:(id)sender
+{
+    [supermvc setMaxIterations:(int)[self.iterationsSlider value]]; // set up the iterations
+    [supermvc setRetina:retinaSwitch.on]; // set up retina
+    supermvc.center = RTPointMake([[self.xCoord text] doubleValue], [[self.yCoord text] doubleValue]);
+    [supermvc setCurrScaleFactor:[[self.zoom text] floatValue]];
+    if (supermvc.mandelImage.image != nil)
+        supermvc.mandelImage.image = nil;
 }
 
 #define kOFFSET_FOR_KEYBOARD 100.0

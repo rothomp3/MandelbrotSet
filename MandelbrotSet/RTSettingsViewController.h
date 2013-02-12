@@ -11,9 +11,8 @@
 @interface RTSettingsViewController : UIViewController <UIPopoverControllerDelegate>
 {
     __weak IBOutlet UISwitch *retinaSwitch;
-    
-    UIPopoverController* imagePopover;
 }
+
 @property (weak, nonatomic) IBOutlet UILabel *sliderLabel;
 @property (weak, nonatomic) IBOutlet UISlider *iterationsSlider;
 @property (weak, nonatomic) IBOutlet UITextField *xCoord;
@@ -26,8 +25,8 @@
 @property (nonatomic) long double y;
 @property (nonatomic) float zoomValue;
 
-- (IBAction)doOtherThing:(id)sender;
 - (IBAction)sliderValueChanged:(UISlider *)sender;
 - (IBAction)dismissKeyboard:(UIView *)sender;
+- (IBAction)valuesChanged:(id)sender;
 
 @end
