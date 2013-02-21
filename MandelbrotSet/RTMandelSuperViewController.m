@@ -37,6 +37,7 @@
         self.progressLabel = [[UILabel alloc] init];
         self.progressLabel.hidden = YES;
         self.progressLabel.text = @"";
+        self.progressLabel.backgroundColor = [UIColor colorWithHue:(240.0 / 360.0) saturation:0.10f brightness:1.0f alpha:1.0f];
         
         [self.view addSubview:self.progressView];
         [self.view addSubview:self.progressLabel];
@@ -55,6 +56,8 @@
         self.maxIterations = 300;
         self.currScaleFactor = 1.0;
         self.center = RTPointMake(-1.0l, 0.0l);
+        self.startColor = 0;
+        self.endColor = 1999;
     }
     return self;
 }
@@ -117,23 +120,60 @@
 
 - (void)dismissProgress
 {
-    [self.mandelImage setImage:self.mandelOp.result];
+    UIImage* theImage;
+    if (self.mandelOp.result == nil)
+    {
+        NSData* imageData = [NSData dataWithContentsOfFile:[self imageCachePath]];
+        if (imageData == nil)
+        {
+            NSLog(@"error reading image data");
+        }
+        theImage = [UIImage imageWithData:imageData];
+        NSLog(@"Loading image: %@", theImage);
+    }
+    else
+    {
+        theImage = self.mandelOp.result;
+    }
+    self.mandelImage.image = nil;
+    [self.mandelImage setImage:theImage];
     self.progressView.hidden = YES;
     self.progressLabel.hidden = YES;
     [self.navigationItem.leftBarButtonItem setEnabled:YES];
     [self.navigationItem.rightBarButtonItem setEnabled:YES];
+    self.shouldAutorotate = YES;
 }
 
+- (NSString*)imageCachePath
+{
+    NSArray* cacheDirectories = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *cacheDirectory = cacheDirectories[0];
+    return [cacheDirectory stringByAppendingPathComponent:@"cache.png"];
+}
 - (void)doTheMandelbrot
 {
+    self.shouldAutorotate = NO;
     if (self.mandelImage.image != nil)
+    {
+        NSLog(@"caching image");
+
+        NSData* imageData = UIImagePNGRepresentation(self.mandelImage.image);
+        [imageData writeToFile:[self imageCachePath] atomically:YES];
         [self.mandelImage setImage:nil];
+    }
     self.mandelOp = nil; // make sure the old one, if it exists, gets freed
+    
+    if (self.colorTable.startColor != self.startColor || self.colorTable.endColor != self.endColor)
+    {
+        self.colorTable = nil;
+        self.colorTable = [[RTColorTable alloc] initWithStartColor:self.startColor endColor:self.endColor];
+    }
+    
     CGRect mandelBounds = self.view.bounds;
     
     self.mandelOp = [[RTMandelbrotOperation alloc] initWithBounds:mandelBounds retina:self.retina];
     [self.mandelOp setMaxIterations:[self maxIterations]];
-    [self.mandelOp setColorTable:[colorTable colors]];
+    [self.mandelOp setColorTable:colorTable];
     [self.mandelOp setProgress:self.progressView];
     [self.mandelOp setProgressLabel:self.progressLabel];
     [self.mandelOp setDelegate:self];
@@ -204,8 +244,15 @@
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
-    self.mandelImage.image = nil;
-    [self doTheMandelbrot];
+    if (![self.mandelOp isExecuting])
+    {
+        [self doTheMandelbrot];
+    }
+    else
+    {
+        [self.mandelOp cancel];
+        [self dismissProgress];
+    }
 }
 
 - (void)redoTheMandelbrot:(CGPoint)point zoom:(float)zoomAmount
@@ -255,5 +302,18 @@
     self.svc.y = self.center.y;
     self.svc.numIterations = self.maxIterations;
     [[self navigationController] pushViewController:self.svc animated:YES];
+}
+
+- (void)setShouldAutorotate:(BOOL)shouldAutrotate
+{
+    _shouldAutorotate = shouldAutrotate;
+}
+
+- (BOOL)shouldAutorotate
+{
+    NSLog(@"shouldAutorotate called");
+    if (self.progressView.hidden == NO)
+        return NO;
+    else return YES;
 }
 @end

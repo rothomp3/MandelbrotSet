@@ -22,11 +22,18 @@
 // Properties for setting up the mandelbrot
 @property (nonatomic) int numIterations;
 @property (nonatomic) long double x;
+@property (strong, nonatomic) NSString* displayX;
 @property (nonatomic) long double y;
+@property (strong, nonatomic) NSString* displayY;
 @property (nonatomic) float zoomValue;
+@property (weak, nonatomic) IBOutlet UIView *colorSquare;
+@property (weak, nonatomic) IBOutlet UIView *colorSquare2;
+@property (weak, nonatomic) IBOutlet UISlider *startColorSlider;
+@property (weak, nonatomic) IBOutlet UISlider *endColorSlider;
 
 - (IBAction)sliderValueChanged:(UISlider *)sender;
 - (IBAction)dismissKeyboard:(UIView *)sender;
 - (IBAction)valuesChanged:(id)sender;
+- (IBAction)changeColor:(UIControl *)sender;
 
 @end

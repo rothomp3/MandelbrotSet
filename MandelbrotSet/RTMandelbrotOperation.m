@@ -75,17 +75,22 @@ void printBits(unsigned int num)
         float prog = (float)completed / (float)totalBitmapSize;
         self.progress.progress = prog;
     };
-    
+    /*
     // set up the color table for fast access
     NSRange colorRange = NSMakeRange(0, self.colorTable.count);
     UIColor* __unsafe_unretained * colorTable = (UIColor * __unsafe_unretained *)malloc(sizeof(id *) * colorRange.length);
-    [self.colorTable getObjects:colorTable range:colorRange];
-    int numColors = self.colorTable.count;
+    [self.colorTable getObjects:colorTable range:colorRange];*/
+    int numColors = self.colorTable.numColors;
+    RTColor* colorTable = [self.colorTable getColors];
     
     void (^mandelthing)(size_t i) = ^(size_t i)
     {
+        if ([self isCancelled])
+            return;
         void (^innerMandelthing)(size_t j) = ^(size_t j)
         {
+            if ([self isCancelled])
+                return;
             // first we get the correctly scaled (x,y) point c
             long double x = [self scaleX:i];
             long double y = [self scaleY:j];
@@ -182,13 +187,10 @@ void printBits(unsigned int num)
                 long double vz = k - log2l(log2l(cabsl(z)));
                 vz = vz * iterationMagnitude;
                 int colorNumber = ((int)vz % numColors);
-                UIColor* color = colorTable[colorNumber];
-                CGFloat red, green, blue, alpha;
-                [color getRed:&red green:&green blue:&blue alpha:&alpha];
                 bitmapPtr[pixelNumber + 3] = (uint8_t)255; //(uint8_t)ceilf(alpha * 255.0f);
-                bitmapPtr[pixelNumber + 2] = (uint8_t)ceilf(blue * 255.0f);
-                bitmapPtr[pixelNumber + 1] = (uint8_t)ceilf(green * 255.0f);
-                bitmapPtr[pixelNumber + 0] = (uint8_t)ceilf(red * 255.0f);
+                bitmapPtr[pixelNumber + 2] = colorTable[colorNumber].blue;
+                bitmapPtr[pixelNumber + 1] = colorTable[colorNumber].green;
+                bitmapPtr[pixelNumber + 0] = colorTable[colorNumber].red;
             }
             completed++;
             if (completed % 5000 == 0) // only when completed is divisible by twenty
@@ -204,7 +206,10 @@ void printBits(unsigned int num)
     dispatch_apply(bounds.size.width, queue, mandelthing);
    
     CGImageRef image = CGBitmapContextCreateImage(context);
-    [self setResult:[UIImage imageWithCGImage:image]];
+    if ([self isCancelled])
+        self.result = nil;
+    else
+        [self setResult:[UIImage imageWithCGImage:image]];
     CGImageRelease(image);
     
     CGColorSpaceRelease(colorSpace);

@@ -18,6 +18,7 @@ typedef struct _RTPoint
 - (void)dismissProgress;
 @end
 
+@class RTColorTable;
 
 @interface RTMandelbrotOperation : NSOperation
 @property  CGRect bounds;
@@ -25,7 +26,7 @@ typedef struct _RTPoint
 @property  float currScaleFactor;
 @property RTPoint center;
 @property CGPoint screenCenter;
-@property (strong) NSArray* colorTable;
+@property (strong) RTColorTable* colorTable;
 @property (strong) UIProgressView* progress;
 @property (strong) UILabel* progressLabel;
 @property (weak) id <RTMandelbrotOperationDelegate> delegate;

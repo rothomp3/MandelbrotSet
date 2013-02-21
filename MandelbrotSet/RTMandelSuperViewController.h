@@ -15,6 +15,7 @@
 @interface RTMandelSuperViewController : UIViewController <UIGestureRecognizerDelegate, RTMandelbrotOperationDelegate>
 {
     float _currScaleFactor;
+    BOOL _shouldAutorotate;
     NSTimer* saveLabelTimer;
 }
 @property (weak, nonatomic) IBOutlet UILabel *iterationsLabel;
@@ -32,6 +33,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *savedLabel;
 
 @property (strong, nonatomic) RTSettingsViewController* svc;
+
+@property (nonatomic) int startColor;
+@property (nonatomic) int endColor;
+
 
 - (void)dismissProgress;
 - (void)doTheMandelbrot;

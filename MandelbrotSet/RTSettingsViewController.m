@@ -45,8 +45,10 @@
     }
     self.iterationsSlider.value = self.numIterations;
     [[self sliderLabel] setText:[NSString stringWithFormat:@"%d", (int)[self.iterationsSlider value]]];
-    [self.xCoord setText:[NSString stringWithFormat:@"%.2Lf",self.x]];
-    [self.yCoord setText:[NSString stringWithFormat:@"%.2Lf",self.y]];
+    self.displayX = [NSString stringWithFormat:@"%.2Lf",self.x];
+    [self.xCoord setText:self.displayX];
+    self.displayY = [NSString stringWithFormat:@"%.2Lf",self.y];
+    [self.yCoord setText:self.displayY];
     [self.zoom setText:[NSString stringWithFormat:@"%.3f", self.zoomValue]];
     
 }
@@ -78,10 +80,36 @@
 {
     [supermvc setMaxIterations:(int)[self.iterationsSlider value]]; // set up the iterations
     [supermvc setRetina:retinaSwitch.on]; // set up retina
-    supermvc.center = RTPointMake([[self.xCoord text] doubleValue], [[self.yCoord text] doubleValue]);
+    RTPoint newCenter = { 0, 0 };
+    if (![[self.xCoord text] isEqualToString:self.displayX])
+        newCenter.x = [self.xCoord.text doubleValue];
+    else
+        newCenter.x = self.x;
+    if (![self.yCoord.text isEqualToString:self.displayY])
+        newCenter.y = [self.yCoord.text doubleValue];
+    else
+        newCenter.y = self.y;
+    supermvc.center = newCenter;
     [supermvc setCurrScaleFactor:[[self.zoom text] floatValue]];
+    [supermvc setStartColor:(int)self.startColorSlider.value];
+    [supermvc setEndColor:(int)self.endColorSlider.value];
     if (supermvc.mandelImage.image != nil)
         supermvc.mandelImage.image = nil;
+}
+
+- (IBAction)changeColor:(UIControl *)sender
+{
+    UISlider* slider = (UISlider*)sender;
+    CGFloat colorNumber = slider.value / 1999.0f;
+    CGFloat hue = colorNumber;
+    CGFloat saturation = 0.8f + (colorNumber * 0.2f);
+    CGFloat brightness = 1.3f - colorNumber;
+    UIColor *color = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1.0f];
+    if ([sender tag] == 1)
+        self.colorSquare.backgroundColor = color;
+    else
+        self.colorSquare2.backgroundColor = color;
+    [self valuesChanged:self];
 }
 
 #define kOFFSET_FOR_KEYBOARD 100.0
