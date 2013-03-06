@@ -37,7 +37,7 @@
         self.progressLabel = [[UILabel alloc] init];
         self.progressLabel.hidden = YES;
         self.progressLabel.text = @"";
-        self.progressLabel.backgroundColor = [UIColor colorWithHue:(240.0 / 360.0) saturation:0.10f brightness:1.0f alpha:1.0f];
+        self.progressLabel.backgroundColor = [UIColor clearColor];
         
         [self.view addSubview:self.progressView];
         [self.view addSubview:self.progressLabel];
@@ -85,6 +85,8 @@
     }
     else if (self.mandelImage.image == nil) // should only happen after a low memory warning
         [self doTheMandelbrot];
+    
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 - (float)currScaleFactor
@@ -112,6 +114,14 @@
 }
 
 - (IBAction)handleGesture:(UITapGestureRecognizer *)sender {
+    if ([sender numberOfTouches] > 1)
+    {
+        if (self.navigationController.navigationBarHidden)
+            [self.navigationController setNavigationBarHidden:NO animated:YES];
+        else
+            [self.navigationController setNavigationBarHidden:YES animated:YES];
+        return;
+    }
     CGPoint point = [sender locationInView:[self view]];
     float zoomAmount = 1;//tapping just recenters the plot
     
@@ -141,7 +151,9 @@
     self.progressLabel.hidden = YES;
     [self.navigationItem.leftBarButtonItem setEnabled:YES];
     [self.navigationItem.rightBarButtonItem setEnabled:YES];
-    self.shouldAutorotate = YES;
+    self.singleTap.enabled = YES;
+    self.doubleTap.enabled = YES;
+    self.pinch.enabled = YES;
 }
 
 - (NSString*)imageCachePath
@@ -150,13 +162,14 @@
     NSString *cacheDirectory = cacheDirectories[0];
     return [cacheDirectory stringByAppendingPathComponent:@"cache.png"];
 }
+
 - (void)doTheMandelbrot
 {
-    self.shouldAutorotate = NO;
+    self.singleTap.enabled = NO;
+    self.doubleTap.enabled = NO;
+    self.pinch.enabled = NO;
     if (self.mandelImage.image != nil)
     {
-        NSLog(@"caching image");
-
         NSData* imageData = UIImagePNGRepresentation(self.mandelImage.image);
         [imageData writeToFile:[self imageCachePath] atomically:YES];
         [self.mandelImage setImage:nil];
@@ -316,4 +329,10 @@
         return NO;
     else return YES;
 }
+
+- (void)updateImage:(UIImage *)newImage
+{
+  self.mandelImage.image = newImage;    
+}
+
 @end

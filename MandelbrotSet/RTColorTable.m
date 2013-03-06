@@ -15,11 +15,6 @@
     return [self initWithStartColor:0 endColor:number - 1];
 }
 
-- (UIColor*)getColorForInteger:(int)color
-{
-    return colors[color];
-}
-
 #define SWAP(a, b) (((a) ^= (b)), ((b) ^= (a)), ((a) ^= (b)))
 - (id)initWithStartColor:(int)startColor endColor:(int)endColor
 {
@@ -27,12 +22,15 @@
     if (self)
     {
         self.numColors = 3000;
-        self.colors = [NSMutableArray new];
+        //self.colors = [NSMutableArray new];
+        colors = malloc(sizeof(RTColor) * self.numColors);
         self.startColor = startColor;
         self.endColor = endColor;
         
         if (startColor > endColor)
             SWAP(startColor, endColor);
+        
+        int colorCount = 0;
         
         for (float i = startColor; i < endColor; i = i + (float)(endColor - startColor + 1) / (float)numColors)
         {
@@ -41,25 +39,27 @@
             CGFloat saturation = 0.8 + (iFactor * 0.2);
             CGFloat brightness = 1.3 - iFactor;
             
-            [colors addObject:[UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1.0]];
+            UIColor* color = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1.0];
+            CGFloat red,green,blue,alpha;
+            [color getRed:&red green:&green blue:&blue alpha:&alpha];
+            colors[colorCount].red = (uint8_t)(ceilf(red * 255.0f));
+            colors[colorCount].green = (uint8_t)(ceilf(green * 255.0f));
+            colors[colorCount].blue = (uint8_t)(ceilf(blue * 255.0f));
+            colorCount++;
         }
-        self.numColors = colors.count;
+        self.numColors = colorCount;
     }
     return self;
 }
 
-- (RTColor*)getColors // returns an array of RTColors. The user must free the memory manually :P
+- (RTColor*)getColors
 {
-    RTColor* colorPtrs = malloc(sizeof(RTColor) * self.numColors);
-    CGFloat red, green, blue, alpha;
-    for (int i = 0; i < self.numColors; i++)
-    {
-        [self.colors[i] getRed:&red green:&green blue:&blue alpha:&alpha];
-        colorPtrs[i].red = (uint8_t)(ceilf(red * 255.0f));
-        colorPtrs[i].green = (uint8_t)(ceilf(green * 255.0f));
-        colorPtrs[i].blue = (uint8_t)(ceilf(blue * 255.0f));
-    }
-    
-    return colorPtrs;
+    return colors;
+}
+
+- (void)dealloc
+{
+    NSLog(@"RTColorTable dealloc'ing");
+    free(colors);
 }
 @end

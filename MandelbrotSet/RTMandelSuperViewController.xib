@@ -2,7 +2,7 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1552</int>
-		<string key="IBDocument.SystemVersion">12C60</string>
+		<string key="IBDocument.SystemVersion">12C3012</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
 		<string key="IBDocument.AppKitVersion">1187.34</string>
 		<string key="IBDocument.HIToolboxVersion">625.00</string>
@@ -237,6 +237,30 @@
 						<reference key="destination" ref="91186817"/>
 					</object>
 					<int key="connectionID">78</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">singleTap</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="344141765"/>
+					</object>
+					<int key="connectionID">79</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">doubleTap</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="883785093"/>
+					</object>
+					<int key="connectionID">80</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">pinch</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="74943761"/>
+					</object>
+					<int key="connectionID">81</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletCollectionConnection" key="connection">
@@ -766,7 +790,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">78</int>
+			<int key="maxID">81</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -806,14 +830,21 @@
 						</object>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="doubleTap">UITapGestureRecognizer</string>
 						<string key="iterationsLabel">UILabel</string>
 						<string key="mandelImage">UIImageView</string>
+						<string key="pinch">UIPinchGestureRecognizer</string>
 						<string key="progressLabel">UILabel</string>
 						<string key="progressView">UIProgressView</string>
 						<string key="savedLabel">UILabel</string>
+						<string key="singleTap">UITapGestureRecognizer</string>
 						<string key="zoomLabel">UILabel</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="doubleTap">
+							<string key="name">doubleTap</string>
+							<string key="candidateClassName">UITapGestureRecognizer</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="iterationsLabel">
 							<string key="name">iterationsLabel</string>
 							<string key="candidateClassName">UILabel</string>
@@ -821,6 +852,10 @@
 						<object class="IBToOneOutletInfo" key="mandelImage">
 							<string key="name">mandelImage</string>
 							<string key="candidateClassName">UIImageView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="pinch">
+							<string key="name">pinch</string>
+							<string key="candidateClassName">UIPinchGestureRecognizer</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="progressLabel">
 							<string key="name">progressLabel</string>
@@ -833,6 +868,10 @@
 						<object class="IBToOneOutletInfo" key="savedLabel">
 							<string key="name">savedLabel</string>
 							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="singleTap">
+							<string key="name">singleTap</string>
+							<string key="candidateClassName">UITapGestureRecognizer</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="zoomLabel">
 							<string key="name">zoomLabel</string>

@@ -16,6 +16,7 @@ typedef struct _RTPoint
 
 @protocol RTMandelbrotOperationDelegate
 - (void)dismissProgress;
+- (void)updateImage:(UIImage*)newImage;
 @end
 
 @class RTColorTable;
@@ -29,13 +30,43 @@ typedef struct _RTPoint
 @property (strong) RTColorTable* colorTable;
 @property (strong) UIProgressView* progress;
 @property (strong) UILabel* progressLabel;
+
 @property (weak) id <RTMandelbrotOperationDelegate> delegate;
 @property int maxIterations;
+
+@property (strong) NSTimer* progressTimer;
+@property __block int completed;
+@property size_t totalBitmapSize;
+@property __block CGContextRef context;
 
 - (id)initWithBounds:(CGRect)newBounds retina:(BOOL)ret;
 
 - (long double)scaleX:(CGFloat)screenCoord;
 - (long double)scaleY:(CGFloat)screenCoord;
+
+- (void)updateProgress:(NSTimer*)timer;
 @end
 
-inline RTPoint RTPointMake(long double x, long double y);
+#ifndef DEBUG
+inline RTPoint RTPointMake(long double x, long double y)
+{
+    RTPoint point;
+    point.x = x;
+    point.y = y;
+    return point;
+}
+
+inline long double scale_x(CGFloat screenCoord, CGPoint screenCenter, long double currScaleFactor, RTPoint center)
+{
+    return ((long double)screenCoord - (long double)(screenCenter.x))/currScaleFactor + (long double)(center.x);
+}
+
+inline long double scale_y(CGFloat screenCoord, CGPoint screenCenter, long double currScaleFactor, RTPoint center)
+{
+    return (0.0l - ((long double)screenCoord - (long double)(screenCenter.y)))/currScaleFactor + (long double)(center.y);
+}
+#else
+RTPoint RTPointMake(long double x, long double y);
+long double scale_x(CGFloat screenCoord, CGPoint screenCenter, long double currScaleFactor, RTPoint center);
+long double scale_y(CGFloat screenCoord, CGPoint screenCenter, long double currScaleFactor, RTPoint center);
+#endif

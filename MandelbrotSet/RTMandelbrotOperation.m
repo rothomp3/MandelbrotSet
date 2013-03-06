@@ -20,7 +20,7 @@ void printBits(unsigned int num)
 }
 
 @implementation RTMandelbrotOperation
-@synthesize bounds, currScaleFactor, center, screenCenter;
+@synthesize bounds, currScaleFactor, center, screenCenter, completed, totalBitmapSize, context;
 - (id)init
 {
     return [self initWithBounds:[[UIScreen mainScreen] bounds] retina:!((int)([UIScreen mainScreen].scale) % 2)];
@@ -50,6 +50,19 @@ void printBits(unsigned int num)
     }
     return self;
 }
+
+- (void)updateProgress:(NSTimer *)timer
+{
+    float prog = (float)completed / (float)totalBitmapSize;
+    CGImageRef tempImage = CGBitmapContextCreateImage(context);
+    self.result = [UIImage imageWithCGImage:tempImage];
+    CGImageRelease(tempImage);
+    dispatch_async(dispatch_get_main_queue(), ^(void) {
+        self.progress.progress = prog;
+        [self.delegate updateImage:self.result];
+    } );
+}
+
 - (void)main
 {
     size_t bitmapBytesPerRow = bounds.size.width * 4;
@@ -61,27 +74,19 @@ void printBits(unsigned int num)
     
     long double iterationMagnitude = log10l(self.maxIterations) * 6.43f;
     
-    size_t totalBitmapSize = bounds.size.width * bounds.size.height;
+    totalBitmapSize = bounds.size.width * bounds.size.height;
     
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     
-    uint8_t* bitmapPtr = malloc(sizeof(uint8_t) * totalBitmapSize * 4);
-    CGContextRef context = CGBitmapContextCreate(bitmapPtr, bounds.size.width, bounds.size.height, 8, bitmapBytesPerRow, colorSpace, kCGImageAlphaPremultipliedLast);
+    uint8_t* bitmapPtr = calloc(totalBitmapSize*4, sizeof(uint8_t));//malloc(sizeof(uint8_t) * totalBitmapSize * 4);
+
+    context = CGBitmapContextCreate(bitmapPtr, bounds.size.width, bounds.size.height, 8, bitmapBytesPerRow, colorSpace, kCGImageAlphaPremultipliedLast);
     
-    __block int completed = 0;
+    completed = 0;
     int maxIterations = self.maxIterations;
     
-    void (^updateProgress)(void) =  ^(void){
-        float prog = (float)completed / (float)totalBitmapSize;
-        self.progress.progress = prog;
-    };
-    /*
-    // set up the color table for fast access
-    NSRange colorRange = NSMakeRange(0, self.colorTable.count);
-    UIColor* __unsafe_unretained * colorTable = (UIColor * __unsafe_unretained *)malloc(sizeof(id *) * colorRange.length);
-    [self.colorTable getObjects:colorTable range:colorRange];*/
     int numColors = self.colorTable.numColors;
-    RTColor* colorTable = [self.colorTable getColors];
+    RTColor* colorTable = self.colorTable.colors;
     
     void (^mandelthing)(size_t i) = ^(size_t i)
     {
@@ -92,8 +97,8 @@ void printBits(unsigned int num)
             if ([self isCancelled])
                 return;
             // first we get the correctly scaled (x,y) point c
-            long double x = [self scaleX:i];
-            long double y = [self scaleY:j];
+            long double x = scale_x(i, screenCenter, currScaleFactor, center);
+            long double y = scale_y(j, screenCenter, currScaleFactor, center);
             //complex long double c = x + y*I;
             
             // Nothing fails after zero iterations…
@@ -146,10 +151,10 @@ void printBits(unsigned int num)
                 
                 // period checking from wiki
                 long double xDiff = fabsl(zr - hx);
-                if (xDiff < 1e-18l)
+                if (xDiff < 1e-17l)
                 {
                     long double yDiff = fabsl(zi - hy);
-                    if (yDiff < 1e-18l)
+                    if (yDiff < 1e-17l)
                     {
                         k = maxIterations;
                         break;
@@ -171,6 +176,7 @@ void printBits(unsigned int num)
                     hy = zi;
                 }
                 checkCounter++;
+                 
                 k++;
             }
     
@@ -187,36 +193,36 @@ void printBits(unsigned int num)
                 long double vz = k - log2l(log2l(cabsl(z)));
                 vz = vz * iterationMagnitude;
                 int colorNumber = ((int)vz % numColors);
-                bitmapPtr[pixelNumber + 3] = (uint8_t)255; //(uint8_t)ceilf(alpha * 255.0f);
+                bitmapPtr[pixelNumber + 3] = (uint8_t)255;
                 bitmapPtr[pixelNumber + 2] = colorTable[colorNumber].blue;
                 bitmapPtr[pixelNumber + 1] = colorTable[colorNumber].green;
                 bitmapPtr[pixelNumber + 0] = colorTable[colorNumber].red;
             }
             completed++;
-            if (completed % 5000 == 0) // only when completed is divisible by twenty
-            {
-                dispatch_async(dispatch_get_main_queue(), updateProgress);
-            }
         };
         dispatch_apply(bounds.size.height, queue, innerMandelthing);
     };
     
     dispatch_async(dispatch_get_main_queue(), ^(void) { [self.progressLabel setText:@"Calculating and drawing…"]; [self.progressLabel sizeToFit];
-        self.progressLabel.center = CGPointMake(self.progress.center.x, self.progress.center.y - self.progressLabel.bounds.size.height - 5.0f);});
+        self.progressLabel.center = CGPointMake(self.progress.center.x, self.progress.center.y - self.progressLabel.bounds.size.height - 5.0f); self.progressLabel.backgroundColor = [UIColor clearColor]; self.progressLabel.shadowColor = [UIColor lightGrayColor]; self.progressLabel.shadowOffset = CGSizeMake(0.5f, 1.0f);});
+    self.progressTimer = [[NSTimer alloc] initWithFireDate:[NSDate new] interval:0.125f target:self selector:@selector(updateProgress:) userInfo:nil repeats:YES];
+    dispatch_sync(dispatch_get_main_queue(), ^(void) {
+        [[NSRunLoop mainRunLoop] addTimer:self.progressTimer forMode:NSDefaultRunLoopMode]; });
     dispatch_apply(bounds.size.width, queue, mandelthing);
    
+    //free(colorTable);
+    dispatch_sync(dispatch_get_main_queue(), ^(void) {
+        [self.progressTimer invalidate]; });
     CGImageRef image = CGBitmapContextCreateImage(context);
     if ([self isCancelled])
         self.result = nil;
     else
         [self setResult:[UIImage imageWithCGImage:image]];
-    CGImageRelease(image);
-    
-    CGColorSpaceRelease(colorSpace);
-    CGContextRelease(context);
     dispatch_sync(dispatch_get_main_queue(), ^(void) { [self.delegate dismissProgress]; });
+    CGImageRelease(image);
+    CGContextRelease(context);
+    CGColorSpaceRelease(colorSpace);
     free(bitmapPtr);
-    free(colorTable);
 }
 
 - (long double)scaleX:(CGFloat)screenCoord
@@ -226,10 +232,16 @@ void printBits(unsigned int num)
 
 - (long double)scaleY:(CGFloat)screenCoord
 {
-    return (0.0f - ((long double)screenCoord - (long double)(screenCenter.y)))/currScaleFactor + (long double)(center.y);
+    return (0.0l - ((long double)screenCoord - (long double)(screenCenter.y)))/currScaleFactor + (long double)(center.y);
+}
+
+- (void)dealloc
+{
+    self.colorTable = nil;
 }
 @end
 
+#ifdef DEBUG
 RTPoint RTPointMake(long double x, long double y)
 {
     RTPoint point;
@@ -237,3 +249,14 @@ RTPoint RTPointMake(long double x, long double y)
     point.y = y;
     return point;
 }
+
+long double scale_x(CGFloat screenCoord, CGPoint screenCenter, long double currScaleFactor, RTPoint center)
+{
+    return ((long double)screenCoord - (long double)(screenCenter.x))/currScaleFactor + (long double)(center.x);
+}
+
+long double scale_y(CGFloat screenCoord, CGPoint screenCenter, long double currScaleFactor, RTPoint center)
+{
+    return (0.0l - ((long double)screenCoord - (long double)(screenCenter.y)))/currScaleFactor + (long double)(center.y);
+}
+#endif

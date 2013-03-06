@@ -21,6 +21,8 @@
     //RTSettingsViewController* svc = [[RTSettingsViewController alloc] init];
     RTMandelSuperViewController* msvc = [[RTMandelSuperViewController alloc] initWithNibName:@"RTMandelSuperViewController" bundle:[NSBundle mainBundle]];
     UINavigationController *navControl = [[UINavigationController alloc] initWithRootViewController:msvc];
+    [[navControl navigationBar] setBarStyle:UIBarStyleBlack];
+    [[navControl navigationBar] setTranslucent:YES];
     //[[self window] setRootViewController:mvc];
     [[self window] setRootViewController:navControl];
     self.window.backgroundColor = [UIColor blackColor];

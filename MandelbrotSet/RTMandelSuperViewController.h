@@ -36,6 +36,9 @@
 
 @property (nonatomic) int startColor;
 @property (nonatomic) int endColor;
+@property (strong, nonatomic) IBOutlet UITapGestureRecognizer *singleTap;
+@property (strong, nonatomic) IBOutlet UITapGestureRecognizer *doubleTap;
+@property (strong, nonatomic) IBOutlet UIPinchGestureRecognizer *pinch;
 
 
 - (void)dismissProgress;
@@ -53,4 +56,7 @@
 - (float)currScaleFactor;
 
 - (IBAction)settings:(id)sender;
+
+- (void)updateImage:(UIImage*)newImage;
+
 @end

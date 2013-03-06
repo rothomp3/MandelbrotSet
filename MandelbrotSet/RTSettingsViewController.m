@@ -34,6 +34,7 @@
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
     self.navigationItem.title = @"Settings";
+    self.navigationController.navigationBar.translucent = NO;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -65,6 +66,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UIKeyboardWillHideNotification
                                                   object:nil];
+    self.navigationController.navigationBar.translucent = YES;
 }
 
 - (IBAction)sliderValueChanged:(UISlider *)sender {
