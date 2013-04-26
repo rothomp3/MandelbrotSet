@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E11B934816E7A7EF00B71CAE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E11B934716E7A7EF00B71CAE /* QuartzCore.framework */; };
 		E14114BF16AB6BF60068A083 /* RTColorTable.m in Sources */ = {isa = PBXBuildFile; fileRef = E14114BE16AB6BF60068A083 /* RTColorTable.m */; };
 		E145116A16BDC3F5008E88BE /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E145116916BDC3F5008E88BE /* AssetsLibrary.framework */; };
 		E14D1E1416CA8E74004155F6 /* Default-Portrait~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = E14D1E1316CA8E74004155F6 /* Default-Portrait~ipad.png */; };
@@ -46,6 +47,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E11B934716E7A7EF00B71CAE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		E14114BD16AB6BF60068A083 /* RTColorTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTColorTable.h; sourceTree = "<group>"; };
 		E14114BE16AB6BF60068A083 /* RTColorTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTColorTable.m; sourceTree = "<group>"; };
 		E145116716BDC384008E88BE /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -98,6 +100,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E11B934816E7A7EF00B71CAE /* QuartzCore.framework in Frameworks */,
 				E145116A16BDC3F5008E88BE /* AssetsLibrary.framework in Frameworks */,
 				E1DE2FA416B4ECC6000CC12A /* OpenGLES.framework in Frameworks */,
 				E1DE2FA116B4ECA5000CC12A /* GLKit.framework in Frameworks */,
@@ -131,6 +134,7 @@
 		E1E42DC116698AD600BCBBF1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E11B934716E7A7EF00B71CAE /* QuartzCore.framework */,
 				E145116916BDC3F5008E88BE /* AssetsLibrary.framework */,
 				E145116716BDC384008E88BE /* AVFoundation.framework */,
 				E1DE2FA316B4ECC6000CC12A /* OpenGLES.framework */,
@@ -321,6 +325,7 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -342,6 +347,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -356,6 +362,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer: Robert Thompson (369MM22663)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Robert Thompson (369MM22663)";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
@@ -366,16 +373,18 @@
 				GCC_PREFIX_HEADER = "MandelbrotSet/MandelbrotSet-Prefix.pch";
 				GCC_STRICT_ALIASING = YES;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = "";
 				INFOPLIST_FILE = "MandelbrotSet/MandelbrotSet-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LLVM_LTO = NO;
 				OTHER_CFLAGS = (
 					"-mfpu=neon",
 					"-DDEBUG=1",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "495B62AC-83D6-4D78-B70E-3B23AE224CA8";
-				TARGETED_DEVICE_FAMILY = 1;
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -384,6 +393,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer: Robert Thompson (369MM22663)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Robert Thompson (369MM22663)";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
@@ -392,16 +402,18 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MandelbrotSet/MandelbrotSet-Prefix.pch";
 				GCC_STRICT_ALIASING = YES;
+				GCC_VERSION = "";
 				INFOPLIST_FILE = "MandelbrotSet/MandelbrotSet-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LLVM_LTO = YES;
 				OTHER_CFLAGS = (
 					"-DNS_BLOCK_ASSERTIONS=1",
 					"-mfpu=neon",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "495B62AC-83D6-4D78-B70E-3B23AE224CA8";
-				TARGETED_DEVICE_FAMILY = 1;
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

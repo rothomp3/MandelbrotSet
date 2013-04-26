@@ -20,7 +20,7 @@ void printBits(unsigned int num)
 }
 
 @implementation RTMandelbrotOperation
-@synthesize bounds, currScaleFactor, center, screenCenter, completed, totalBitmapSize, context;
+@synthesize bounds, currScaleFactor, center, screenCenter, totalBitmapSize, context;
 - (id)init
 {
     return [self initWithBounds:[[UIScreen mainScreen] bounds] retina:!((int)([UIScreen mainScreen].scale) % 2)];
@@ -53,12 +53,10 @@ void printBits(unsigned int num)
 
 - (void)updateProgress:(NSTimer *)timer
 {
-    float prog = (float)completed / (float)totalBitmapSize;
     CGImageRef tempImage = CGBitmapContextCreateImage(context);
     self.result = [UIImage imageWithCGImage:tempImage];
     CGImageRelease(tempImage);
     dispatch_async(dispatch_get_main_queue(), ^(void) {
-        self.progress.progress = prog;
         [self.delegate updateImage:self.result];
     } );
 }
@@ -81,8 +79,8 @@ void printBits(unsigned int num)
     uint8_t* bitmapPtr = calloc(totalBitmapSize*4, sizeof(uint8_t));//malloc(sizeof(uint8_t) * totalBitmapSize * 4);
 
     context = CGBitmapContextCreate(bitmapPtr, bounds.size.width, bounds.size.height, 8, bitmapBytesPerRow, colorSpace, kCGImageAlphaPremultipliedLast);
+    CGContextSetAllowsAntialiasing(context, true);
     
-    completed = 0;
     int maxIterations = self.maxIterations;
     
     int numColors = self.colorTable.numColors;
@@ -198,13 +196,10 @@ void printBits(unsigned int num)
                 bitmapPtr[pixelNumber + 1] = colorTable[colorNumber].green;
                 bitmapPtr[pixelNumber + 0] = colorTable[colorNumber].red;
             }
-            completed++;
         };
         dispatch_apply(bounds.size.height, queue, innerMandelthing);
     };
     
-    dispatch_async(dispatch_get_main_queue(), ^(void) { [self.progressLabel setText:@"Calculating and drawing…"]; [self.progressLabel sizeToFit];
-        self.progressLabel.center = CGPointMake(self.progress.center.x, self.progress.center.y - self.progressLabel.bounds.size.height - 5.0f); self.progressLabel.backgroundColor = [UIColor clearColor]; self.progressLabel.shadowColor = [UIColor lightGrayColor]; self.progressLabel.shadowOffset = CGSizeMake(0.5f, 1.0f);});
     self.progressTimer = [[NSTimer alloc] initWithFireDate:[NSDate new] interval:0.125f target:self selector:@selector(updateProgress:) userInfo:nil repeats:YES];
     dispatch_sync(dispatch_get_main_queue(), ^(void) {
         [[NSRunLoop mainRunLoop] addTimer:self.progressTimer forMode:NSDefaultRunLoopMode]; });
@@ -213,6 +208,8 @@ void printBits(unsigned int num)
     //free(colorTable);
     dispatch_sync(dispatch_get_main_queue(), ^(void) {
         [self.progressTimer invalidate]; });
+    
+    CGContextSetShouldAntialias(context, true);
     CGImageRef image = CGBitmapContextCreateImage(context);
     if ([self isCancelled])
         self.result = nil;

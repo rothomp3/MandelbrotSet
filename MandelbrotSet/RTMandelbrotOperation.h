@@ -28,14 +28,11 @@ typedef struct _RTPoint
 @property RTPoint center;
 @property CGPoint screenCenter;
 @property (strong) RTColorTable* colorTable;
-@property (strong) UIProgressView* progress;
-@property (strong) UILabel* progressLabel;
 
 @property (weak) id <RTMandelbrotOperationDelegate> delegate;
 @property int maxIterations;
 
 @property (strong) NSTimer* progressTimer;
-@property __block int completed;
 @property size_t totalBitmapSize;
 @property __block CGContextRef context;
 

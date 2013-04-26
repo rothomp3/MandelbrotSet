@@ -13,6 +13,7 @@
 #import "AssetsLibrary/AssetsLibrary.h"
 #import "UIKit/UIView.h"
 #import "RTSettingsViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface RTMandelSuperViewController ()
 
@@ -29,18 +30,6 @@
         queue = [[NSOperationQueue alloc] init];
         self.firstAppearance = YES;
         colorTable = [[RTColorTable alloc] initWithColors:2000];
-
-        self.progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
-        self.progressView.hidden = YES;
-        self.progressView.progress = 0.0f;
-        
-        self.progressLabel = [[UILabel alloc] init];
-        self.progressLabel.hidden = YES;
-        self.progressLabel.text = @"";
-        self.progressLabel.backgroundColor = [UIColor clearColor];
-        
-        [self.view addSubview:self.progressView];
-        [self.view addSubview:self.progressLabel];
         
         UIBarButtonItem* saveItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(save:)];
         [self.navigationItem setRightBarButtonItem:saveItem];
@@ -58,6 +47,9 @@
         self.center = RTPointMake(-1.0l, 0.0l);
         self.startColor = 0;
         self.endColor = 1999;
+        
+        [self.mandelImage.layer setMagnificationFilter:kCAFilterLinear];
+        
     }
     return self;
 }
@@ -146,9 +138,8 @@
         theImage = self.mandelOp.result;
     }
     self.mandelImage.image = nil;
+   
     [self.mandelImage setImage:theImage];
-    self.progressView.hidden = YES;
-    self.progressLabel.hidden = YES;
     [self.navigationItem.leftBarButtonItem setEnabled:YES];
     [self.navigationItem.rightBarButtonItem setEnabled:YES];
     self.singleTap.enabled = YES;
@@ -187,8 +178,6 @@
     self.mandelOp = [[RTMandelbrotOperation alloc] initWithBounds:mandelBounds retina:self.retina];
     [self.mandelOp setMaxIterations:[self maxIterations]];
     [self.mandelOp setColorTable:colorTable];
-    [self.mandelOp setProgress:self.progressView];
-    [self.mandelOp setProgressLabel:self.progressLabel];
     [self.mandelOp setDelegate:self];
     
     [self.mandelOp setCenter:center];
@@ -203,13 +192,6 @@
     //[self.navigationController setNavigationBarHidden:YES animated:NO];
     [self.navigationItem.leftBarButtonItem setEnabled:NO];
     [self.navigationItem.rightBarButtonItem setEnabled:NO];
-    
-    self.progressLabel.center = CGPointMake(self.view.center.x, self.view.center.y + 10.0f);
-    self.progressView.frame = CGRectMake(0.0f, 0.0f, self.view.bounds.size.width - 40.0f, self.progressView.bounds.size.height);
-    self.progressView.center = self.view.center;
-    self.progressView.progress = 0.0f;
-    self.progressView.hidden = NO;
-    self.progressLabel.hidden = NO;
 }
 
 - (IBAction)handlePinch:(UIPinchGestureRecognizer *)gesture
@@ -322,13 +304,6 @@
     _shouldAutorotate = shouldAutrotate;
 }
 
-- (BOOL)shouldAutorotate
-{
-    NSLog(@"shouldAutorotate called");
-    if (self.progressView.hidden == NO)
-        return NO;
-    else return YES;
-}
 
 - (void)updateImage:(UIImage *)newImage
 {
