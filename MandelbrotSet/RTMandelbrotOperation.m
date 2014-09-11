@@ -1,4 +1,4 @@
-//
+ //
 //  RTMandelbrotOperation.m
 //  MandelbrotSet
 //
@@ -85,9 +85,16 @@ void printBits(unsigned int num)
     
     int numColors = self.colorTable.numColors;
     RTColor* colorTable = self.colorTable.colors;
+	
+	self.progressTimer = [[NSTimer alloc] initWithFireDate:[NSDate new] interval:0.125f target:self selector:@selector(updateProgress:) userInfo:nil repeats:YES];
+    dispatch_sync(dispatch_get_main_queue(), ^(void) {
+        [[NSRunLoop mainRunLoop] addTimer:self.progressTimer forMode:NSDefaultRunLoopMode]; });
     
-    void (^mandelthing)(size_t i) = ^(size_t i)
-    {
+//    void (^mandelthing)(size_t i) = ^(size_t i)
+//    {
+//  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+	for (int i = 0; i < bounds.size.height; i++)
+	{
         if ([self isCancelled])
             return;
         void (^innerMandelthing)(size_t j) = ^(size_t j)
@@ -95,8 +102,8 @@ void printBits(unsigned int num)
             if ([self isCancelled])
                 return;
             // first we get the correctly scaled (x,y) point c
-            long double x = scale_x(i, screenCenter, currScaleFactor, center);
-            long double y = scale_y(j, screenCenter, currScaleFactor, center);
+            long double x = scale_x(j, screenCenter, currScaleFactor, center);
+            long double y = scale_y(i, screenCenter, currScaleFactor, center);
             //complex long double c = x + y*I;
             
             // Nothing fails after zero iterations…
@@ -178,7 +185,7 @@ void printBits(unsigned int num)
                 k++;
             }
     
-            int pixelNumber = (i * 4) + (int)(j * bitmapBytesPerRow);
+            uint64_t pixelNumber = (j * 4) + (uint64_t)(i * bitmapBytesPerRow);
             if (k == maxIterations)
             {
                 bitmapPtr[pixelNumber + 3] = 255;
@@ -197,13 +204,12 @@ void printBits(unsigned int num)
                 bitmapPtr[pixelNumber + 0] = colorTable[colorNumber].red;
             }
         };
-        dispatch_apply(bounds.size.height, queue, innerMandelthing);
-    };
+        dispatch_apply(bounds.size.width, queue, innerMandelthing);
+    }
+	//} );
     
-    self.progressTimer = [[NSTimer alloc] initWithFireDate:[NSDate new] interval:0.125f target:self selector:@selector(updateProgress:) userInfo:nil repeats:YES];
-    dispatch_sync(dispatch_get_main_queue(), ^(void) {
-        [[NSRunLoop mainRunLoop] addTimer:self.progressTimer forMode:NSDefaultRunLoopMode]; });
-    dispatch_apply(bounds.size.width, queue, mandelthing);
+
+	//    dispatch_apply(bounds.size.height, queue, mandelthing);
    
     //free(colorTable);
     dispatch_sync(dispatch_get_main_queue(), ^(void) {

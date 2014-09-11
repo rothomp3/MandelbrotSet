@@ -7,23 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E11065A717BEC0F10021E1E0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E11065A617BEC0F10021E1E0 /* Images.xcassets */; };
 		E11B934816E7A7EF00B71CAE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E11B934716E7A7EF00B71CAE /* QuartzCore.framework */; };
 		E14114BF16AB6BF60068A083 /* RTColorTable.m in Sources */ = {isa = PBXBuildFile; fileRef = E14114BE16AB6BF60068A083 /* RTColorTable.m */; };
 		E145116A16BDC3F5008E88BE /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E145116916BDC3F5008E88BE /* AssetsLibrary.framework */; };
-		E14D1E1416CA8E74004155F6 /* Default-Portrait~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = E14D1E1316CA8E74004155F6 /* Default-Portrait~ipad.png */; };
-		E14D1E1616CA8E7B004155F6 /* Default-Portrait@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = E14D1E1516CA8E7B004155F6 /* Default-Portrait@2x~ipad.png */; };
-		E14D1E1816CA8E95004155F6 /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = E14D1E1716CA8E95004155F6 /* Default-Landscape~ipad.png */; };
-		E14D1E1A16CA8EC2004155F6 /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = E14D1E1916CA8EC2004155F6 /* Default-Landscape@2x~ipad.png */; };
 		E14D1E1C16CA8F46004155F6 /* startermandel-ipad-landscape.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E14D1E1B16CA8F46004155F6 /* startermandel-ipad-landscape.JPG */; };
 		E14D1E1E16CA90E9004155F6 /* startermandel-ipad.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E14D1E1D16CA90E9004155F6 /* startermandel-ipad.JPG */; };
-		E14D1E2016CA99C2004155F6 /* iphoneIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = E14D1E1F16CA99C2004155F6 /* iphoneIcon.png */; };
-		E14D1E2216CA99C8004155F6 /* iphoneicon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E14D1E2116CA99C8004155F6 /* iphoneicon@2x.png */; };
-		E14D1E2416CA99FE004155F6 /* ipadicon.png in Resources */ = {isa = PBXBuildFile; fileRef = E14D1E2316CA99FE004155F6 /* ipadicon.png */; };
-		E14D1E2616CA9A03004155F6 /* ipadicon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E14D1E2516CA9A03004155F6 /* ipadicon@2x.png */; };
-		E14D1E2B16CA9ADB004155F6 /* ipadspotlighticon.png in Resources */ = {isa = PBXBuildFile; fileRef = E14D1E2716CA9ADB004155F6 /* ipadspotlighticon.png */; };
-		E14D1E2C16CA9ADB004155F6 /* ipadspotlighticon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E14D1E2816CA9ADB004155F6 /* ipadspotlighticon@2x.png */; };
-		E14D1E2D16CA9ADB004155F6 /* iphonespotlighticon.png in Resources */ = {isa = PBXBuildFile; fileRef = E14D1E2916CA9ADB004155F6 /* iphonespotlighticon.png */; };
-		E14D1E2E16CA9ADB004155F6 /* iphonespotlighticon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E14D1E2A16CA9ADB004155F6 /* iphonespotlighticon@2x.png */; };
 		E16F8A7D16B1FB87000114D8 /* RTMandelbrotOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = E16F8A7C16B1FB87000114D8 /* RTMandelbrotOperation.m */; };
 		E183198016AC5674008D5BB4 /* RTSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E183197F16AC5673008D5BB4 /* RTSettingsViewController.xib */; };
 		E183198316AC57F5008D5BB4 /* RTSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E183198216AC57F5008D5BB4 /* RTSettingsViewController.m */; };
@@ -32,9 +21,6 @@
 		E1A9942816C43AD90084AFF9 /* startermandel.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E1A9942716C43AD90084AFF9 /* startermandel.jpg */; };
 		E1B0A34116B3A4D10048FD53 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1B0A34016B3A4D10048FD53 /* CoreImage.framework */; };
 		E1B20A6116B2F25C00E8C5D7 /* RTMandelSuperViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1B20A6016B2F25C00E8C5D7 /* RTMandelSuperViewController.xib */; };
-		E1C1537B16B4640D00F06BFB /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E183198416AC8ED9008D5BB4 /* Default@2x.png */; };
-		E1C1537C16B464F900F06BFB /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = E183198A16AC8F6E008D5BB4 /* Default.png */; };
-		E1C1537D16B4657600F06BFB /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E183198816AC8F38008D5BB4 /* Default-568h@2x.png */; };
 		E1DE2F6A16B27EFB000CC12A /* RTMandelSuperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1DE2F6916B27EFA000CC12A /* RTMandelSuperViewController.m */; };
 		E1DE2FA116B4ECA5000CC12A /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1DE2FA016B4ECA4000CC12A /* GLKit.framework */; };
 		E1DE2FA416B4ECC6000CC12A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1DE2FA316B4ECC6000CC12A /* OpenGLES.framework */; };
@@ -47,33 +33,21 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E11065A617BEC0F10021E1E0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		E11B934716E7A7EF00B71CAE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		E14114BD16AB6BF60068A083 /* RTColorTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTColorTable.h; sourceTree = "<group>"; };
 		E14114BE16AB6BF60068A083 /* RTColorTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTColorTable.m; sourceTree = "<group>"; };
 		E145116716BDC384008E88BE /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		E145116916BDC3F5008E88BE /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
-		E14D1E1316CA8E74004155F6 /* Default-Portrait~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Portrait~ipad.png"; path = "../Default-Portrait~ipad.png"; sourceTree = "<group>"; };
-		E14D1E1516CA8E7B004155F6 /* Default-Portrait@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Portrait@2x~ipad.png"; path = "../Default-Portrait@2x~ipad.png"; sourceTree = "<group>"; };
-		E14D1E1716CA8E95004155F6 /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape~ipad.png"; path = "../Default-Landscape~ipad.png"; sourceTree = "<group>"; };
-		E14D1E1916CA8EC2004155F6 /* Default-Landscape@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape@2x~ipad.png"; path = "../Default-Landscape@2x~ipad.png"; sourceTree = "<group>"; };
+		E147D40917BE70EC00F7057E /* iphone7icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iphone7icon@2x.png"; path = "../iphone7icon@2x.png"; sourceTree = "<group>"; };
+		E147D40A17BE712200F7057E /* ipad7icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ipad7icon.png; path = ../ipad7icon.png; sourceTree = "<group>"; };
 		E14D1E1B16CA8F46004155F6 /* startermandel-ipad-landscape.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "startermandel-ipad-landscape.JPG"; sourceTree = "<group>"; };
 		E14D1E1D16CA90E9004155F6 /* startermandel-ipad.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "startermandel-ipad.JPG"; sourceTree = "<group>"; };
-		E14D1E1F16CA99C2004155F6 /* iphoneIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iphoneIcon.png; path = ../iphoneIcon.png; sourceTree = "<group>"; };
-		E14D1E2116CA99C8004155F6 /* iphoneicon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iphoneicon@2x.png"; path = "../iphoneicon@2x.png"; sourceTree = "<group>"; };
-		E14D1E2316CA99FE004155F6 /* ipadicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ipadicon.png; path = ../ipadicon.png; sourceTree = "<group>"; };
-		E14D1E2516CA9A03004155F6 /* ipadicon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ipadicon@2x.png"; path = "../ipadicon@2x.png"; sourceTree = "<group>"; };
-		E14D1E2716CA9ADB004155F6 /* ipadspotlighticon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ipadspotlighticon.png; sourceTree = "<group>"; };
-		E14D1E2816CA9ADB004155F6 /* ipadspotlighticon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ipadspotlighticon@2x.png"; sourceTree = "<group>"; };
-		E14D1E2916CA9ADB004155F6 /* iphonespotlighticon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iphonespotlighticon.png; sourceTree = "<group>"; };
-		E14D1E2A16CA9ADB004155F6 /* iphonespotlighticon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iphonespotlighticon@2x.png"; sourceTree = "<group>"; };
 		E16F8A7B16B1FB87000114D8 /* RTMandelbrotOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTMandelbrotOperation.h; sourceTree = "<group>"; };
 		E16F8A7C16B1FB87000114D8 /* RTMandelbrotOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTMandelbrotOperation.m; sourceTree = "<group>"; };
 		E183197F16AC5673008D5BB4 /* RTSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RTSettingsViewController.xib; sourceTree = "<group>"; };
 		E183198116AC57F5008D5BB4 /* RTSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTSettingsViewController.h; sourceTree = "<group>"; };
 		E183198216AC57F5008D5BB4 /* RTSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTSettingsViewController.m; sourceTree = "<group>"; };
-		E183198416AC8ED9008D5BB4 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../Default@2x.png"; sourceTree = "<group>"; };
-		E183198816AC8F38008D5BB4 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
-		E183198A16AC8F6E008D5BB4 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = ../Default.png; sourceTree = "<group>"; };
 		E1A9942316C4369F0084AFF9 /* startermandel@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "startermandel@2x.jpg"; sourceTree = "<group>"; };
 		E1A9942516C438F00084AFF9 /* startermandel-568h@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "startermandel-568h@2x.jpg"; sourceTree = "<group>"; };
 		E1A9942716C43AD90084AFF9 /* startermandel.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = startermandel.jpg; sourceTree = "<group>"; };
@@ -162,6 +136,7 @@
 				E183197F16AC5673008D5BB4 /* RTSettingsViewController.xib */,
 				E183198116AC57F5008D5BB4 /* RTSettingsViewController.h */,
 				E183198216AC57F5008D5BB4 /* RTSettingsViewController.m */,
+				E11065A617BEC0F10021E1E0 /* Images.xcassets */,
 				E1E42DC916698AD600BCBBF1 /* Supporting Files */,
 			);
 			path = MandelbrotSet;
@@ -170,30 +145,17 @@
 		E1E42DC916698AD600BCBBF1 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				E14D1E2516CA9A03004155F6 /* ipadicon@2x.png */,
-				E14D1E2316CA99FE004155F6 /* ipadicon.png */,
-				E14D1E2116CA99C8004155F6 /* iphoneicon@2x.png */,
-				E14D1E1F16CA99C2004155F6 /* iphoneIcon.png */,
 				E14D1E1D16CA90E9004155F6 /* startermandel-ipad.JPG */,
-				E14D1E1916CA8EC2004155F6 /* Default-Landscape@2x~ipad.png */,
-				E14D1E1716CA8E95004155F6 /* Default-Landscape~ipad.png */,
 				E14D1E1B16CA8F46004155F6 /* startermandel-ipad-landscape.JPG */,
-				E14D1E1316CA8E74004155F6 /* Default-Portrait~ipad.png */,
 				E1A9942716C43AD90084AFF9 /* startermandel.jpg */,
 				E1A9942316C4369F0084AFF9 /* startermandel@2x.jpg */,
-				E14D1E1516CA8E7B004155F6 /* Default-Portrait@2x~ipad.png */,
 				E1A9942516C438F00084AFF9 /* startermandel-568h@2x.jpg */,
 				E1E42DCA16698AD600BCBBF1 /* MandelbrotSet-Info.plist */,
 				E1E42DCB16698AD600BCBBF1 /* InfoPlist.strings */,
 				E1E42DCE16698AD600BCBBF1 /* main.m */,
 				E1E42DD016698AD600BCBBF1 /* MandelbrotSet-Prefix.pch */,
-				E183198A16AC8F6E008D5BB4 /* Default.png */,
-				E183198816AC8F38008D5BB4 /* Default-568h@2x.png */,
-				E183198416AC8ED9008D5BB4 /* Default@2x.png */,
-				E14D1E2716CA9ADB004155F6 /* ipadspotlighticon.png */,
-				E14D1E2816CA9ADB004155F6 /* ipadspotlighticon@2x.png */,
-				E14D1E2916CA9ADB004155F6 /* iphonespotlighticon.png */,
-				E14D1E2A16CA9ADB004155F6 /* iphonespotlighticon@2x.png */,
+				E147D40A17BE712200F7057E /* ipad7icon.png */,
+				E147D40917BE70EC00F7057E /* iphone7icon@2x.png */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -225,8 +187,13 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = RT;
-				LastUpgradeCheck = 0450;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Robert Stephen Thompson";
+				TargetAttributes = {
+					E1E42DBD16698AD600BCBBF1 = {
+						DevelopmentTeam = 7UMFPW78PV;
+					};
+				};
 			};
 			buildConfigurationList = E1E42DB816698AD600BCBBF1 /* Build configuration list for PBXProject "MandelbrotSet" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -253,26 +220,12 @@
 				E1E42DCD16698AD600BCBBF1 /* InfoPlist.strings in Resources */,
 				E183198016AC5674008D5BB4 /* RTSettingsViewController.xib in Resources */,
 				E1B20A6116B2F25C00E8C5D7 /* RTMandelSuperViewController.xib in Resources */,
-				E1C1537B16B4640D00F06BFB /* Default@2x.png in Resources */,
-				E1C1537C16B464F900F06BFB /* Default.png in Resources */,
-				E1C1537D16B4657600F06BFB /* Default-568h@2x.png in Resources */,
 				E1A9942416C4369F0084AFF9 /* startermandel@2x.jpg in Resources */,
 				E1A9942616C438F00084AFF9 /* startermandel-568h@2x.jpg in Resources */,
 				E1A9942816C43AD90084AFF9 /* startermandel.jpg in Resources */,
-				E14D1E1416CA8E74004155F6 /* Default-Portrait~ipad.png in Resources */,
-				E14D1E1616CA8E7B004155F6 /* Default-Portrait@2x~ipad.png in Resources */,
-				E14D1E1816CA8E95004155F6 /* Default-Landscape~ipad.png in Resources */,
-				E14D1E1A16CA8EC2004155F6 /* Default-Landscape@2x~ipad.png in Resources */,
+				E11065A717BEC0F10021E1E0 /* Images.xcassets in Resources */,
 				E14D1E1C16CA8F46004155F6 /* startermandel-ipad-landscape.JPG in Resources */,
 				E14D1E1E16CA90E9004155F6 /* startermandel-ipad.JPG in Resources */,
-				E14D1E2016CA99C2004155F6 /* iphoneIcon.png in Resources */,
-				E14D1E2216CA99C8004155F6 /* iphoneicon@2x.png in Resources */,
-				E14D1E2416CA99FE004155F6 /* ipadicon.png in Resources */,
-				E14D1E2616CA9A03004155F6 /* ipadicon@2x.png in Resources */,
-				E14D1E2B16CA9ADB004155F6 /* ipadspotlighticon.png in Resources */,
-				E14D1E2C16CA9ADB004155F6 /* ipadspotlighticon@2x.png in Resources */,
-				E14D1E2D16CA9ADB004155F6 /* iphonespotlighticon.png in Resources */,
-				E14D1E2E16CA9ADB004155F6 /* iphonespotlighticon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -315,7 +268,8 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Robert Thompson (W269YS749A)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Robert Thompson (W269YS749A)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -331,6 +285,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "74E46578-5ECD-418C-8C48-45B8C1AA8A45";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -344,7 +299,8 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Robert Thompson (W269YS749A)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Robert Thompson (W269YS749A)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = "";
@@ -353,6 +309,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "74E46578-5ECD-418C-8C48-45B8C1AA8A45";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -361,10 +318,14 @@
 		E1E42DDD16698AD600BCBBF1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Robert Thompson (369MM22663)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Robert Thompson (369MM22663)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_X86_VECTOR_INSTRUCTIONS = avx;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Robert Thompson (W269YS749A)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Robert Thompson (W269YS749A)";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_DYNAMIC_NO_PIC = YES;
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				GCC_ENABLE_CPP_RTTI = NO;
 				GCC_FAST_MATH = YES;
@@ -375,15 +336,17 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "MandelbrotSet/MandelbrotSet-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				LLVM_LTO = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LLVM_LTO = YES;
+				LLVM_VECTORIZE_LOOPS = YES;
 				OTHER_CFLAGS = (
 					"-mfpu=neon",
 					"-DDEBUG=1",
+					"-fslp-vectorize-aggressive",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "e25c3191-a396-460f-a844-97cc9bccb011";
+				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -392,27 +355,34 @@
 		E1E42DDE16698AD600BCBBF1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Robert Thompson (369MM22663)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Robert Thompson (369MM22663)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_X86_VECTOR_INSTRUCTIONS = avx;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Robert Thompson (W269YS749A)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Robert Thompson (W269YS749A)";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_DYNAMIC_NO_PIC = YES;
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				GCC_ENABLE_CPP_RTTI = NO;
 				GCC_FAST_MATH = YES;
+				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MandelbrotSet/MandelbrotSet-Prefix.pch";
 				GCC_STRICT_ALIASING = YES;
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "MandelbrotSet/MandelbrotSet-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LLVM_LTO = YES;
+				LLVM_VECTORIZE_LOOPS = YES;
 				OTHER_CFLAGS = (
 					"-DNS_BLOCK_ASSERTIONS=1",
 					"-mfpu=neon",
+					"-fslp-vectorize-aggressive",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "e25c3191-a396-460f-a844-97cc9bccb011";
+				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};

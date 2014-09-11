@@ -27,6 +27,7 @@
     [[self window] setRootViewController:navControl];
     self.window.backgroundColor = [UIColor blackColor];
     [self.window makeKeyAndVisible];
+		
     return YES;
 }
 

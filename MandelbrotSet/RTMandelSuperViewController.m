@@ -29,14 +29,14 @@
         self.retina = ([UIScreen mainScreen].scale<2.0)?NO:YES;
         queue = [[NSOperationQueue alloc] init];
         self.firstAppearance = YES;
-        colorTable = [[RTColorTable alloc] initWithColors:2000];
+        colorTable = [[RTColorTable alloc] initWithColors:3000];
         
         UIBarButtonItem* saveItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(save:)];
         [self.navigationItem setRightBarButtonItem:saveItem];
         
         UIBarButtonItem* settingsItem = [[UIBarButtonItem alloc] initWithTitle:@"⚙" style:UIBarButtonItemStylePlain target:self action:@selector(settings:)];
         UIFont* font = [UIFont systemFontOfSize:24.0f];
-        [settingsItem setTitleTextAttributes:@{UITextAttributeFont:font} forState:UIControlStateNormal];
+        [settingsItem setTitleTextAttributes:@{NSFontAttributeName:font} forState:UIControlStateNormal];
         [self.navigationItem setLeftBarButtonItem:settingsItem];
         
         self.navigationItem.title = @"MandelbrotSet";
@@ -46,7 +46,7 @@
         self.currScaleFactor = 1.0;
         self.center = RTPointMake(-1.0l, 0.0l);
         self.startColor = 0;
-        self.endColor = 1999;
+        self.endColor = 2999;
         
         [self.mandelImage.layer setMagnificationFilter:kCAFilterLinear];
         
